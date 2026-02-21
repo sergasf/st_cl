@@ -416,6 +416,9 @@
     <div class="gallery-item" onclick="openLightbox('photos/interior.webp')">
       <img src="photos/interior.webp" alt="Интерьер">
     </div>
+    <div class="gallery-item" onclick="openLightbox('photos/interior2.jpg')">
+      <img src="photos/interior2.jpg" alt="Интерьер">
+    </div>
     <!-- Новые фото: <div class="gallery-item" onclick="openLightbox('photos/ИМЯ.jpg')"><img src="photos/ИМЯ.jpg" alt=""></div> -->
   </div>
 </div>
@@ -566,7 +569,7 @@
       Производство по чертежам<br>
       Поставки и таможенное оформление
     </p>
-    <a class="contact-link" href="mailto:info@southbearstudio.com">Написать нам</a>
+    <a class="contact-link" href="/cdn-cgi/l/email-protection#aac3c4ccc5ead9c5dfdec2c8cfcbd8d9dedfcec3c584c9c5c7">Написать нам</a>
   </div>
 </div>
 
@@ -575,7 +578,7 @@
   <span>© 2025 South Bear Studio</span>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   // Мебель — фильтр с панелями
   document.getElementById('furniture-tabs').querySelectorAll('.subcat-tag').forEach(tag => {
     tag.addEventListener('click', () => {
@@ -595,11 +598,4 @@
 
   function closeLightbox() {
     document.getElementById('lightbox').classList.remove('open');
-    document.getElementById('lightbox-img').src = '';
-  }
-
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
-</script>
-
-</body>
-</html>
+    document.getElemen
