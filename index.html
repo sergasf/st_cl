@@ -1,781 +1,673 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>South Bear Studio | Дизайн и Оснащение</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>South Bear Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-:root {
-  --bg:       #0C0A09;
-  --bg2:      #121009;
-  --surface:  #1A1612;
-  --border:   rgba(255,255,255,0.07);
-  --gold:     #C9A96E;
-  --gold-dim: rgba(201,169,110,0.18);
-  --cream:    #F0EBE1;
-  --muted:    #6B6560;
-  --text:     #D8D1C8;
-}
+    :root {
+      --bg: #0e0e0e;
+      --surface: #161616;
+      --border: #2a2a2a;
+      --text: #e8e2d9;
+      --text-muted: #7a7570;
+      --accent: #c8a96e;
+      --accent-dim: rgba(200,169,110,0.12);
+    }
 
-html { scroll-behavior: smooth; }
-body {
-  font-family: 'DM Sans', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  overflow-x: hidden;
-}
+    html { scroll-behavior: smooth; }
 
-/* ── CURSOR ── */
-.cursor {
-  position: fixed; width: 8px; height: 8px;
-  background: var(--gold); border-radius: 50%;
-  pointer-events: none; z-index: 9999;
-  transform: translate(-50%,-50%);
-  transition: transform 0.15s;
-}
-.cursor-ring {
-  position: fixed; width: 36px; height: 36px;
-  border: 1px solid rgba(201,169,110,0.5); border-radius: 50%;
-  pointer-events: none; z-index: 9998;
-  transform: translate(-50%,-50%);
-  transition: transform 0.35s cubic-bezier(.25,.46,.45,.94);
-}
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
 
-/* ── NAV ── */
-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 1.6rem 4rem;
-  background: linear-gradient(to bottom, rgba(12,10,9,0.95), transparent);
-  transition: background 0.3s, border-color 0.3s;
-}
-.logo {
-  display: flex; align-items: center; gap: 1rem;
-  text-decoration: none;
-}
-.logo img {
-  height: 36px; object-fit: contain;
-  filter: brightness(0) invert(1); /* белый логотип на тёмном фоне */
-}
-.logo-text {
-  font-family: 'Playfair Display', serif;
-  font-size: 1rem; letter-spacing: 0.25em;
-  color: var(--cream); text-transform: uppercase;
-}
-.nav-links { display: flex; gap: 2.8rem; list-style: none; }
-.nav-links a {
-  font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--muted); text-decoration: none; transition: color 0.25s;
-}
-.nav-links a:hover { color: var(--gold); }
-.nav-cta {
-  font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--bg); background: var(--gold);
-  padding: 0.7rem 1.8rem; text-decoration: none; transition: opacity 0.2s;
-}
-.nav-cta:hover { opacity: 0.85; }
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 48px;
+      background: rgba(14,14,14,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
 
-/* ── HERO ── */
-#hero {
-  height: 100vh; position: relative;
-  display: flex; align-items: flex-end; overflow: hidden;
-}
-.hero-grid {
-  position: absolute; inset: 0;
-  display: grid; grid-template-columns: 1fr 1fr;
-}
-.hero-grid img {
-  width: 100%; height: 100%; object-fit: cover;
-  filter: grayscale(30%) brightness(0.45);
-}
-.hero-overlay { position: absolute; inset: 0; background: black/20; }
-/* architectural line overlay */
-.hero-lines {
-  position: absolute; inset: 0;
-  display: flex; align-items: center; justify-content: flex-end;
-  padding-right: 2rem; pointer-events: none;
-}
-.hero-content {
-  position: relative; z-index: 2;
-  padding: 0 4rem 6rem; max-width: 680px;
-}
-.hero-eyebrow {
-  display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem;
-}
-.eyebrow-line { width: 40px; height: 1px; background: var(--gold); }
-.eyebrow-text {
-  font-size: 0.68rem; letter-spacing: 0.25em; text-transform: uppercase;
-  color: var(--gold);
-}
-.hero-title {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(3.5rem, 6vw, 6.5rem);
-  font-weight: 400; line-height: 1.0;
-  color: var(--cream); margin-bottom: 2rem;
-}
-.hero-title em { font-style: italic; color: var(--gold); }
-.hero-desc {
-  font-size: 0.9rem; line-height: 1.85;
-  color: var(--muted); font-weight: 300;
-  max-width: 440px; margin-bottom: 3rem;
-}
-.hero-actions { display: flex; gap: 1.5rem; align-items: center; }
-.btn-gold {
-  background: var(--gold); color: var(--bg);
-  padding: 1rem 2.5rem;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase;
-  border: none; cursor: pointer; text-decoration: none;
-  transition: opacity 0.2s; display: inline-block;
-}
-.btn-gold:hover { opacity: 0.85; }
-.btn-outline {
-  font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase;
-  color: var(--muted); text-decoration: none;
-  border-bottom: 1px solid var(--border);
-  padding-bottom: 2px; transition: color 0.2s, border-color 0.2s;
-}
-.btn-outline:hover { color: var(--gold); border-color: var(--gold); }
-.hero-scroll {
-  position: absolute; right: 4rem; bottom: 6rem; z-index: 2;
-  display: flex; flex-direction: column; align-items: center; gap: 1rem;
-}
-.scroll-label {
-  font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase;
-  color: var(--muted); writing-mode: vertical-rl;
-}
-.scroll-line {
-  width: 1px; height: 60px;
-  background: linear-gradient(to bottom, var(--gold), transparent);
-  animation: scrollPulse 2s infinite;
-}
-@keyframes scrollPulse {
-  0%,100% { opacity: 0.3; } 50% { opacity: 1; }
-}
-.hero-stats {
-  position: absolute; right: 4rem; top: 50%;
-  transform: translateY(-50%); z-index: 2;
-  display: flex; flex-direction: column; gap: 2.5rem;
-}
-.stat { text-align: right; }
-.stat-n {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.4rem; font-weight: 400;
-  color: var(--gold); line-height: 1; display: block;
-}
-.stat-l {
-  font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--muted); display: block; margin-top: 0.3rem;
-}
+    .nav-logo img {
+      height: 36px;
+      filter: invert(1) brightness(0.9);
+    }
 
-/* ── SECTION TAGS ── */
-.s-tag {
-  font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase;
-  color: var(--gold); display: flex; align-items: center; gap: 0.8rem;
-  margin-bottom: 1.2rem;
-}
-.s-tag::before { content: ''; width: 30px; height: 1px; background: var(--gold); }
-.s-title {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(2rem, 3.5vw, 3.5rem);
-  font-weight: 400; line-height: 1.1; color: var(--cream);
-}
-.s-title em { font-style: italic; color: var(--gold); }
-.s-sub {
-  font-size: 0.88rem; line-height: 1.85;
-  color: var(--muted); font-weight: 300;
-}
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
 
-/* ── VIDEO CONTAINERS ── */
-.video-horizontal { aspect-ratio: 16/9; width: 100%; overflow: hidden; background: #111; border-radius: 4px; }
-.video-square     { aspect-ratio: 1/1;  width: 100%; max-width: 500px; overflow: hidden; background: #111; margin: 0 auto; }
-.video-vertical   { aspect-ratio: 3/4;  width: 100%; max-width: 380px; overflow: hidden; background: #111; margin: 0 auto; }
-video { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
 
-/* ── GALLERY CARDS ── */
-.g-card {
-  overflow: hidden; position: relative; background: var(--surface);
-  cursor: pointer;
-}
-.g-card img, .g-card video {
-  width: 100%; height: 100%; object-fit: cover; display: block;
-  transition: transform 0.8s cubic-bezier(.25,.46,.45,.94);
-}
-.g-card:hover img, .g-card:hover video { transform: scale(1.05); }
-.g-card-overlay {
-  position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(12,10,9,0.85) 0%, transparent 55%);
-  opacity: 0; transition: opacity 0.4s;
-  display: flex; flex-direction: column; justify-content: flex-end;
-  padding: 1.5rem;
-}
-.g-card:hover .g-card-overlay { opacity: 1; pointer-events: auto; }
+    .nav-links a:hover { color: var(--accent); }
 
-/* Allow clicks to pass through the overlay when it's hidden so videos remain clickable */
-.g-card-overlay { pointer-events: none; }
-.g-card-label {
-  font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--gold); margin-bottom: 0.3rem;
-}
-.g-card-name {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.2rem; color: var(--cream);
-}
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 48px 80px;
+      position: relative;
+    }
 
-/* ── LIVING COLLECTION ── */
-#furniture { padding: 8rem 4rem; background: var(--bg); }
-.furniture-grid {
-  display: grid; grid-template-columns: 1.6fr 1fr 1fr;
-  grid-template-rows: 420px 280px; gap: 3px; margin-top: 5rem;
-}
-.furniture-grid .g-card:nth-child(1) { grid-column: 1; grid-row: 1 / 3; }
-.furniture-grid .g-card:nth-child(2) { grid-column: 2; grid-row: 1; }
-.furniture-grid .g-card:nth-child(3) { grid-column: 3; grid-row: 1; }
-.furniture-grid .g-card:nth-child(4) { grid-column: 2; grid-row: 2; }
-.furniture-grid .g-card:nth-child(5) { grid-column: 3; grid-row: 2; }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(200,169,110,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
 
-/* ── CHAIRS ── */
-#chairs { padding: 8rem 4rem; background: var(--bg2); border-top: 1px solid var(--border); }
-.chairs-grid {
-  display: grid; grid-template-columns: repeat(4, 1fr);
-  gap: 3px; margin-top: 4rem;
-}
-.chair-card {
-  background: var(--surface); position: relative; overflow: hidden;
-  aspect-ratio: 1/1; cursor: pointer;
-}
-.chair-card img {
-  width: 100%; height: 100%; object-fit: cover; display: block;
-  transition: transform 0.8s cubic-bezier(.25,.46,.45,.94);
-  filter: grayscale(20%);
-  border-radius: 50%;
-  /* круговая маска через clip-path или просто border-radius на контейнере */
-}
-.chair-card-inner {
-  width: 80%; height: 80%; border-radius: 50%; overflow: hidden;
-  margin: 10% auto; position: relative;
-  border: 2px solid rgba(201,169,110,0.2);
-  box-shadow: 0 0 40px rgba(0,0,0,0.6);
-  transition: border-color 0.3s;
-}
-.chair-card:hover .chair-card-inner { border-color: rgba(201,169,110,0.6); }
-.chair-card-inner img {
-  width: 100%; height: 100%; object-fit: cover;
-  border-radius: 50%;
-  transition: transform 0.8s cubic-bezier(.25,.46,.45,.94);
-}
-.chair-card:hover .chair-card-inner img { transform: scale(1.06); }
-.chair-label {
-  position: absolute; bottom: 8%; left: 0; right: 0;
-  text-align: center;
-  font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase;
-  color: rgba(201,169,110,0.5);
-}
+    .hero-logo {
+      width: min(420px, 80vw);
+      filter: invert(1) brightness(0.95);
+      margin-bottom: 40px;
+      animation: fadeUp 1s ease both;
+    }
 
-/* ── SMART STORAGE ── */
-#tech { padding: 8rem 4rem; background: var(--surface); border-top: 1px solid var(--border); }
-.tech-layout {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 6rem; align-items: center; margin-top: 4rem;
-}
-.tech-video-wrap {
-  position: relative;
-}
-.tech-video-wrap::before {
-  content: '';
-  position: absolute; top: -1.5rem; left: -1.5rem;
-  right: 1.5rem; bottom: 1.5rem;
-  border: 1px solid var(--gold-dim);
-  pointer-events: none;
-  z-index: 0;
-}
-.tech-video-wrap .video-vertical { position: relative; z-index: 1; }
-.tech-images {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 3px;
-}
-.tech-images .g-card { height: 260px; }
+    .hero-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(18px, 2.5vw, 26px);
+      font-style: italic;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+      animation: fadeUp 1s 0.2s ease both;
+    }
 
-/* ── MATERIALS ── */
-#materials { padding: 8rem 4rem; background: var(--bg); border-top: 1px solid var(--border); }
-.materials-grid {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 3px; margin-top: 4rem;
-}
-.mat-card {
-  position: relative; overflow: hidden; background: var(--surface);
-}
-.mat-label {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  padding: 1.5rem; z-index: 2;
-  font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
-  color: rgba(240,235,225,0.5);
-  background: linear-gradient(to top, rgba(12,10,9,0.7), transparent);
-  text-align: center;
-}
+    .hero-divider {
+      width: 60px; height: 1px;
+      background: var(--accent);
+      margin: 32px auto;
+      animation: fadeUp 1s 0.3s ease both;
+    }
 
-/* ── CONTACT ── */
-#contact { padding: 8rem 4rem; background: var(--bg2); border-top: 1px solid var(--border); }
-.contact-grid {
-  display: grid; grid-template-columns: 1fr 1.2fr;
-  gap: 7rem; align-items: start;
-}
-.c-details { margin-top: 3.5rem; display: flex; flex-direction: column; gap: 2.2rem; }
-.c-lbl {
-  font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--gold); margin-bottom: 0.4rem;
-}
-.c-val { font-family: 'Playfair Display', serif; font-size: 1.15rem; color: var(--cream); }
-.form { display: flex; flex-direction: column; gap: 1.4rem; }
-.f-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; }
-.f-group { display: flex; flex-direction: column; gap: 0.5rem; }
-.f-lbl {
-  font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--muted);
-}
-.f-input, .f-select, .f-textarea {
-  background: rgba(255,255,255,0.03);
-  border: 1px solid var(--border);
-  border-bottom-color: rgba(255,255,255,0.15);
-  color: var(--cream);
-  padding: 1rem 1.2rem;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.88rem; font-weight: 300;
-  outline: none; width: 100%;
-  transition: border-color 0.25s, background 0.25s;
-}
-.f-input:focus, .f-select:focus, .f-textarea:focus {
-  border-color: var(--gold); background: rgba(201,169,110,0.04);
-}
-.f-input::placeholder, .f-textarea::placeholder { color: rgba(255,255,255,0.15); }
-.f-select { appearance: none; cursor: pointer; }
-.f-select option { background: var(--bg); }
-.f-textarea { resize: vertical; min-height: 120px; }
-.f-submit {
-  background: var(--gold); color: var(--bg);
-  border: none; padding: 1.15rem;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
-  cursor: pointer; transition: opacity 0.2s; margin-top: 0.4rem;
-}
-.f-submit:hover { opacity: 0.85; }
-.f-note { font-size: 0.68rem; color: var(--muted); text-align: center; }
-.success {
-  display: none; text-align: center; padding: 3rem;
-  border: 1px solid rgba(201,169,110,0.3); background: var(--gold-dim);
-}
-.success-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.8rem; font-style: italic; color: var(--cream); margin-bottom: 0.8rem;
-}
-.success-sub { font-size: 0.82rem; color: var(--muted); }
+    .hero-sub {
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      animation: fadeUp 1s 0.4s ease both;
+    }
 
-/* ── FOOTER ── */
-footer {
-  background: #080706; padding: 2rem 4rem;
-  display: flex; justify-content: space-between; align-items: center;
-  border-top: 1px solid var(--border);
-}
-.f-logo {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.2rem; letter-spacing: 0.2em; color: var(--cream); text-decoration: none;
-}
-.f-logo span { color: var(--gold); }
-.f-copy { font-size: 0.68rem; color: var(--muted); letter-spacing: 0.08em; }
-.f-nav { display: flex; gap: 2rem; }
-.f-nav a {
-  font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;
-  color: var(--muted); text-decoration: none; transition: color 0.2s;
-}
-.f-nav a:hover { color: var(--gold); }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
 
-/* ── REVEAL ── */
-.reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
-.reveal.in { opacity: 1; transform: translateY(0); }
+    /* ── LAYOUT ── */
+    .section-wrap {
+      padding: 100px 48px;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
 
-/* ── RESPONSIVE ── */
-@media (max-width: 1000px) {
-  nav { padding: 1.2rem 1.5rem; }
-  .nav-links, .hero-stats, .cursor, .cursor-ring { display: none; }
-  .hero-grid { grid-template-columns: 1fr; }
-  .hero-grid img:last-child { display: none; }
-  .hero-content { padding: 8rem 1.5rem 4rem; }
-  #furniture, #chairs, #tech, #materials, #contact { padding: 5rem 1.5rem; }
-  .furniture-grid {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto;
-  }
-  .furniture-grid .g-card { grid-column: auto !important; grid-row: auto !important; height: 200px; }
-  .furniture-grid .g-card:first-child { grid-column: 1 / 3 !important; height: 300px; }
-  .chairs-grid { grid-template-columns: 1fr 1fr; }
-  .tech-layout { grid-template-columns: 1fr; gap: 3rem; }
-  .materials-grid { grid-template-columns: 1fr; }
-  .contact-grid { grid-template-columns: 1fr; gap: 3.5rem; }
-  .f-row { grid-template-columns: 1fr; }
-  footer { flex-direction: column; gap: 1rem; padding: 1.5rem; text-align: center; }
-}
-</style>
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 24px;
+      margin-bottom: 60px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 24px;
+    }
+
+    .section-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 13px;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 300;
+      letter-spacing: 0.02em;
+      flex: 1;
+    }
+
+    .section-desc {
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      align-self: center;
+    }
+
+    /* ── TABS ── */
+    .subcats {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+
+    .subcat-tag {
+      padding: 7px 18px;
+      border: 1px solid var(--border);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.25s;
+      user-select: none;
+    }
+
+    .subcat-tag:hover, .subcat-tag.active {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-dim);
+    }
+
+    .subcat-panel { display: none; }
+    .subcat-panel.active { display: block; }
+
+    /* ── GALLERY ── */
+    /* Базовая сетка для портретных фото (3:4) */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 3px;
+    }
+
+    .gallery-item {
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      background: var(--surface);
+      cursor: pointer;
+    }
+
+    /* Ландшафтное фото — занимает 2 колонки */
+    .gallery-item--wide {
+      aspect-ratio: 2/1;
+      grid-column: span 2;
+    }
+
+    /* Квадратное фото */
+    .gallery-item--square {
+      aspect-ratio: 1/1;
+    }
+
+    .gallery-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+      display: block;
+    }
+
+    .gallery-item:hover img { transform: scale(1.06); }
+
+    /* ── SUBSECTION LABEL ── */
+    .subsection-label {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 48px 0 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .subsection-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── VIDEO GRID ── */
+    /* Сетка для видео 16:9 — по 2 в ряд */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(440px, 1fr));
+      gap: 20px;
+    }
+
+    /* Смешанная сетка — 16:9 и нестандартные рядом */
+    .video-grid--mixed {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .video-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+    }
+
+    /* Контейнеры с правильными пропорциями */
+    .video-16-9 { aspect-ratio: 16/9; }
+    .video-1-1  { aspect-ratio: 1/1; }
+    .video-3-4  { aspect-ratio: 3/4; }
+
+    .video-embed {
+      width: 100%;
+      background: #080808;
+      overflow: hidden;
+    }
+
+    .video-embed video {
+      width: 100%; height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .video-label {
+      padding: 14px 20px;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── LIGHTBOX ── */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(0,0,0,0.92);
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lightbox.open { display: flex; }
+
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 90vh;
+      object-fit: contain;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 24px; right: 32px;
+      font-size: 36px;
+      color: var(--text-muted);
+      cursor: pointer;
+      line-height: 1;
+      transition: color 0.2s;
+    }
+
+    .lightbox-close:hover { color: var(--accent); }
+
+    /* ── MISC ── */
+    .sep {
+      width: 100%; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+    }
+
+    .contact-section {
+      text-align: center;
+      padding: 100px 48px;
+    }
+
+    .contact-inner { max-width: 480px; margin: 0 auto; }
+
+    .contact-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(28px, 3.5vw, 44px);
+      font-weight: 300;
+      margin-bottom: 16px;
+    }
+
+    .contact-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      margin-bottom: 40px;
+      line-height: 2;
+    }
+
+    .contact-link {
+      display: inline-block;
+      padding: 14px 40px;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      transition: all 0.3s;
+    }
+
+    .contact-link:hover { background: var(--accent); color: var(--bg); }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+    }
+
+    footer img {
+      height: 24px;
+      filter: invert(1) brightness(0.5);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .video-grid--mixed {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      .section-wrap { padding: 60px 20px; }
+      .video-grid { grid-template-columns: 1fr; }
+      .video-grid--mixed { grid-template-columns: 1fr; }
+      .gallery-item--wide { grid-column: span 1; aspect-ratio: 2/1; }
+      footer { flex-direction: column; gap: 16px; text-align: center; }
+    }
+  </style>
 </head>
 <body>
 
-<div class="cursor" id="cur"></div>
-<div class="cursor-ring" id="curR"></div>
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <span class="lightbox-close">×</span>
+  <img id="lightbox-img" src="" alt="">
+</div>
 
-<!-- NAV -->
-<nav id="mainNav">
-  <a class="logo" href="#">
-    <!-- logo.jpg: рекомендуем 400×120px или PNG с прозрачностью -->
+<nav>
+  <a class="nav-logo" href="#top">
     <img src="photos/logo.png" alt="South Bear Studio">
-    <span class="logo-text">South Bear Studio</span>
   </a>
   <ul class="nav-links">
+    <li><a href="#interiors">Интерьеры</a></li>
     <li><a href="#furniture">Мебель</a></li>
-    <li><a href="#chairs">Кресла</a></li>
-    <li><a href="#tech">Технологии</a></li>
-    <li><a href="#materials">Материалы</a></li>
+    <li><a href="#kitchen">Кухня</a></li>
     <li><a href="#contact">Контакты</a></li>
   </ul>
-  <a href="#contact" class="nav-cta">Заявка</a>
 </nav>
 
-<!-- HERO
-     interior.webp  → левая половина, вертикальная  900×1600px
-     interior2.jpg  → правая половина, горизонтальная 1600×900px -->
-<section id="hero">
-  <div class="hero-grid">
-    <img src="photos/interior.webp" alt="Интерьер" loading="eager">
-    <img src="photos/interior2.jpg" alt="Интерьер широкий" loading="eager">
-  </div>
-  <div style="position:absolute;inset:0;background:rgba(0,0,0,0.15);"></div>
+<!-- HERO -->
+<div class="hero" id="top">
+  <img class="hero-logo" src="photos/logo.png" alt="South Bear Studio">
+  <p class="hero-tagline">Мебель и интерьеры под заказ</p>
+  <div class="hero-divider"></div>
+  <p class="hero-sub">Производство · Поставки · Проектирование</p>
+</div>
 
-  <div class="hero-lines">
-    <svg viewBox="0 0 900 600" width="760" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.12;">
-      <rect x="100" y="50" width="700" height="500" stroke="#C9A96E" stroke-width="0.8"/>
-      <path d="M100 50 L40 10 L820 10 L760 50" stroke="#C9A96E" stroke-width="0.5" opacity="0.5"/>
-      <path d="M100 550 L40 590 L820 590 L760 550" stroke="#C9A96E" stroke-width="0.5" opacity="0.5"/>
-      <path d="M100 50 L40 10 L40 590 L100 550" stroke="#C9A96E" stroke-width="0.5" opacity="0.5"/>
-      <path d="M760 50 L820 10 L820 590 L760 550" stroke="#C9A96E" stroke-width="0.5" opacity="0.5"/>
-      <rect x="290" y="80" width="260" height="220" stroke="#C9A96E" stroke-width="0.8"/>
-      <line x1="420" y1="80" x2="420" y2="300" stroke="#C9A96E" stroke-width="0.5"/>
-      <line x1="290" y1="190" x2="550" y2="190" stroke="#C9A96E" stroke-width="0.5"/>
-      <rect x="120" y="390" width="230" height="80" stroke="#C9A96E" stroke-width="0.8"/>
-      <rect x="120" y="360" width="230" height="36" stroke="#C9A96E" stroke-width="0.6"/>
-      <line x1="640" y1="320" x2="640" y2="480" stroke="#C9A96E" stroke-width="0.9"/>
-      <path d="M610 320 L670 320 L660 285 L620 285 Z" stroke="#C9A96E" stroke-width="0.7"/>
-      <line x1="100" y1="390" x2="760" y2="390" stroke="#C9A96E" stroke-width="0.5" opacity="0.3"/>
-      <line x1="280" y1="50" x2="280" y2="550" stroke="#C9A96E" stroke-width="0.3" opacity="0.2"/>
-      <line x1="560" y1="50" x2="560" y2="550" stroke="#C9A96E" stroke-width="0.3" opacity="0.2"/>
-    </svg>
+<div class="sep"></div>
+
+<!-- 01 ИНТЕРЬЕРЫ -->
+<div class="section-wrap" id="interiors">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <h2 class="section-title">Дизайн интерьеров</h2>
+    <span class="section-desc">Галерея проектов</span>
   </div>
 
-  <div class="hero-content">
-    <div class="hero-eyebrow reveal">
-      <span class="eyebrow-line"></span>
-      <span class="eyebrow-text">Дизайн · Ремонт · Мебель на заказ</span>
+  <!--
+    interior.webp  — 750×1000 (3:4 портрет)  → обычная карточка
+    interior2.jpg  — 959×492  (2:1 ландшафт) → широкая карточка на 2 колонки
+  -->
+  <div class="gallery">
+    <div class="gallery-item" onclick="openLightbox('photos/interior.webp')">
+      <img src="photos/interior.webp" alt="Интерьер">
     </div>
-    <h1 class="hero-title reveal">South<br>Bear<br>Studio</h1>
-    <p class="hero-desc reveal">Проектируем, строим и меблируем пространства, в которых хочется жить. Каждый объект — авторская работа от первого эскиза до последней детали.</p>
-    <div class="hero-actions reveal">
-      <a href="#contact" class="btn-gold">Обсудить проект</a>
-      <a href="#furniture" class="btn-outline">Смотреть коллекцию</a>
+    <div class="gallery-item gallery-item--wide" onclick="openLightbox('photos/interior2.jpg')">
+      <img src="photos/interior2.jpg" alt="Интерьер">
     </div>
   </div>
+</div>
 
-  <div class="hero-stats reveal">
-    <div class="stat"><span class="stat-n">8+</span><span class="stat-l">Лет в деле</span></div>
-    <div class="stat"><span class="stat-n">230</span><span class="stat-l">Проектов</span></div>
-    <div class="stat"><span class="stat-n">97%</span><span class="stat-l">Рекомендуют</span></div>
+<div class="sep"></div>
+
+<!-- 02 МЕБЕЛЬ -->
+<div class="section-wrap" id="furniture">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <h2 class="section-title">Мебель</h2>
   </div>
 
-  <div class="hero-scroll">
-    <span class="scroll-label">Scroll</span>
-    <span class="scroll-line"></span>
+  <div class="subcats" id="furniture-tabs">
+    <span class="subcat-tag active" data-target="all">Все</span>
+    <span class="subcat-tag" data-target="divany">Диваны</span>
+    <span class="subcat-tag" data-target="kresla">Кресла</span>
+    <span class="subcat-tag" data-target="krovati">Кровати</span>
+    <span class="subcat-tag" data-target="shkafy">Шкафы</span>
   </div>
-</section>
 
-<!-- LIVING COLLECTION
-     sofa_cass.jpg → большая вертикальная карточка  800×1200px (2:3)
-     sofa-video.mp4 → квадратный контейнер         1080×1080px (1:1)
-     sofa1.jpg      → квадратная карточка           800×800px  (1:1)
-     sofa2.jpg      → квадратная карточка           800×800px  (1:1) -->
-<section id="furniture">
-  <div class="reveal">
-    <p class="s-tag">Living Collection</p>
-    <h2 class="s-title">Диваны &amp; <em>Мягкая мебель</em></h2>
-  </div>
-  <div class="furniture-grid reveal">
+  <!-- ВСЕ -->
+  <div class="subcat-panel active" id="panel-all">
 
-    <!-- Карточка 1: большая, левая — вертикальное фото -->
-    <div class="g-card">
-      <img src="photos/sofa_cass.jpg" alt="Диван Cassandra" loading="lazy">
-      <div class="g-card-overlay">
-        <div class="g-card-label">Флагманская модель</div>
-        <div class="g-card-name">Cassandra</div>
+    <div class="subsection-label">Диваны</div>
+    <!--
+      sofa_cass.jpg — 1188×1190 (≈1:1 квадрат)
+      sofa1–5.jpg   — ~750×880 (портрет ~5:6)  → используем 3:4
+    -->
+    <div class="gallery">
+      <div class="gallery-item gallery-item--square" onclick="openLightbox('photos/sofa_cass.jpg')">
+        <img src="photos/sofa_cass.jpg" alt="Диван">
+      </div>
+      <div class="gallery-item" onclick="openLightbox('photos/sofa1.jpg')"><img src="photos/sofa1.jpg" alt="Диван"></div>
+      <div class="gallery-item" onclick="openLightbox('photos/sofa2.jpg')"><img src="photos/sofa2.jpg" alt="Диван"></div>
+      <div class="gallery-item" onclick="openLightbox('photos/sofa3.jpg')"><img src="photos/sofa3.jpg" alt="Диван"></div>
+      <div class="gallery-item" onclick="openLightbox('photos/sofa4.jpg')"><img src="photos/sofa4.jpg" alt="Диван"></div>
+      <div class="gallery-item" onclick="openLightbox('photos/sofa5.jpg')"><img src="photos/sofa5.jpg" alt="Диван"></div>
+    </div>
+
+    <div class="subsection-label">Кресла</div>
+    <!-- chair1–4: ~750×900 (портрет ~5:6) → 3:4 -->
+    <div class="gallery">
+      <div class="gallery-item" onclick="openLightbox('photos/chair1.jpg')"><img src="photos/chair1.jpg" alt="Кресло"></div>
+      <div class="gallery-item" onclick="openLightbox('photos/chair2.jpg')"><img src="photos/chair2.jpg" alt="Кресло"></div>
+      <div class="gallery-item" onclick="openLightbox('photos/chair3.jpg')"><img src="photos/chair3.jpg" alt="Кресло"></div>
+      <div class="gallery-item" onclick="openLightbox('photos/chair4.jpg')"><img src="photos/chair4.jpg" alt="Кресло"></div>
+    </div>
+
+    <div class="subsection-label">Кровати</div>
+    <!-- bed1.webp — 800×800 (квадрат) -->
+    <div class="gallery">
+      <div class="gallery-item gallery-item--square" onclick="openLightbox('photos/bed1.webp')">
+        <img src="photos/bed1.webp" alt="Кровать">
       </div>
     </div>
 
-    <!-- Карточка 2: правый верх — квадратное видео -->
-    <div class="g-card">
-      <div class="video-square" style="max-width:100%;height:100%;">
-        <video autoplay muted loop playsinline preload="metadata" poster="photos/sofa1.jpg">
-          <source src="photos/sofa-video.mp4" type="video/mp4">
-        </video>
+    <div class="subsection-label">Шкафы</div>
+    <!-- wardrobe1.jpg — 742×960 (портрет ~3:4) -->
+    <div class="gallery">
+      <div class="gallery-item" onclick="openLightbox('photos/wardrobe1.jpg')">
+        <img src="photos/wardrobe1.jpg" alt="Шкаф">
       </div>
     </div>
 
-    <!-- Карточка 3: правый верх второй -->
-    <div class="g-card">
-      <img src="photos/sofa1.jpg" alt="Диван 1" loading="lazy">
-      <div class="g-card-overlay">
-        <div class="g-card-label">Коллекция 2026</div>
-        <div class="g-card-name">Модель S-01</div>
-      </div>
-    </div>
+    <div class="subsection-label">Видео</div>
+    <!--
+      sofa-video.mp4    — 720×720  (1:1 квадрат)
+      leather-tech.mp4  — 1280×720 (16:9)
+      wood-tech.mp4     — 1280×720 (16:9)
 
-    <!-- Карточка 4: правый низ -->
-    <div class="g-card">
-      <img src="photos/sofa2.jpg" alt="Диван 2" loading="lazy">
-      <div class="g-card-overlay">
-        <div class="g-card-label">Коллекция 2026</div>
-        <div class="g-card-name">Модель S-02</div>
+      Раскладка: [16:9 широкий] [1:1] стоят рядом,
+      wood-tech идёт ниже на полную ширину — красиво и по пропорциям.
+    -->
+    <div class="video-grid--mixed">
+      <div class="video-card">
+        <div class="video-embed video-16-9">
+          <video controls preload="metadata" playsinline>
+            <source src="photos/leather-tech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="video-label">Кожа для мебели</div>
       </div>
-    </div>
-
-    <!-- Карточка 5: правый низ второй -->
-    <div class="g-card" style="background:var(--surface);display:flex;flex-direction:column;justify-content:flex-end;padding:2.5rem;">
-      <p class="s-tag" style="margin-bottom:1rem;">Материалы</p>
-      <p style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--cream);line-height:1.3;margin-bottom:1rem;">Квадратные формы и выверенная <em style="color:var(--gold);">эргономика</em></p>
-      <p style="font-size:0.8rem;color:var(--muted);line-height:1.7;font-weight:300;">Натуральные материалы, ручная сборка, гарантия 10 лет.</p>
+      <div class="video-card">
+        <div class="video-embed video-1-1">
+          <video controls preload="metadata" playsinline>
+            <source src="photos/sofa-video.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="video-label">Выдвижной диван</div>
+      </div>
+      <div class="video-card">
+        <div class="video-embed video-16-9">
+          <video controls preload="metadata" playsinline>
+            <source src="photos/wood-tech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="video-label">О древесине</div>
+      </div>
     </div>
   </div>
-</section>
 
-<!-- CHAIRS
-     chair1-4.jpg → квадрат 600×600px (1:1), центр кадра — кресло -->
-<section id="chairs">
-  <div class="reveal">
-    <p class="s-tag">Seating Series</p>
-    <h2 class="s-title">Кресла <em>Series A</em></h2>
-  </div>
-  <div class="chairs-grid reveal">
-    <div class="chair-card">
-      <div class="chair-card-inner">
-        <img src="photos/chair1.jpg" alt="Кресло A1" loading="lazy">
-      </div>
-      <span class="chair-label">Series A1</span>
+  <!-- ДИВАНЫ -->
+  <div class="subcat-panel" id="panel-divany">
+    <div class="gallery">
+      <div class="gallery-item gallery-item--square" onclick="openLightbox('photos/sofa_cass.jpg')"><img src="photos/sofa_cass.jpg" alt="Диван"></div>
+      <div class="gallery-item" onclick="openLightbox('photos/sofa1.jpg')"><img src="photos/sofa1.jpg" alt="Диван"></div>
+      <div class="gallery-item" onclick="openLightbox('photos/sofa2.jpg')"><img src="photos/sofa2.jpg" alt="Диван"></div>
+      <div class="gallery-item" onclick="openLightbox('photos/sofa3.jpg')"><img src="photos/sofa3.jpg" alt="Диван"></div>
+      <div class="gallery-item" onclick="openLightbox('photos/sofa4.jpg')"><img src="photos/sofa4.jpg" alt="Диван"></div>
+      <div class="gallery-item" onclick="openLightbox('photos/sofa5.jpg')"><img src="photos/sofa5.jpg" alt="Диван"></div>
     </div>
-    <div class="chair-card">
-      <div class="chair-card-inner">
-        <img src="photos/chair2.jpg" alt="Кресло A2" loading="lazy">
+    <div class="subsection-label">Видео</div>
+    <div class="video-grid">
+      <div class="video-card">
+        <div class="video-embed video-1-1">
+          <video controls preload="metadata" playsinline>
+            <source src="photos/sofa-video.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="video-label">Выдвижной диван</div>
       </div>
-      <span class="chair-label">Series A2</span>
-    </div>
-    <div class="chair-card">
-      <div class="chair-card-inner">
-        <img src="photos/chair3.jpg" alt="Кресло A3" loading="lazy">
-      </div>
-      <span class="chair-label">Series A3</span>
-    </div>
-    <div class="chair-card">
-      <div class="chair-card-inner">
-        <img src="photos/chair4.jpg" alt="Кресло A4" loading="lazy">
-      </div>
-      <span class="chair-label">Series A4</span>
     </div>
   </div>
-</section>
 
-<!-- SMART STORAGE
-     kitchen-lift.mp4 → вертикальный 3:4, 1080×1440px, poster=wardrobe1.jpg
-     wardrobe1.jpg    → 3:4,  800×1067px
-     bed1.webp        → 1:1,  800×800px -->
-<section id="tech">
-  <div class="reveal">
-    <p class="s-tag">Smart Storage</p>
-    <h2 class="s-title">Порядок, возведённый<br>в <em>абсолют</em></h2>
+  <!-- КРЕСЛА -->
+  <div class="subcat-panel" id="panel-kresla">
+    <div class="gallery">
+      <div class="gallery-item" onclick="openLightbox('photos/chair1.jpg')"><img src="photos/chair1.jpg" alt="Кресло"></div>
+      <div class="gallery-item" onclick="openLightbox('photos/chair2.jpg')"><img src="photos/chair2.jpg" alt="Кресло"></div>
+      <div class="gallery-item" onclick="openLightbox('photos/chair3.jpg')"><img src="photos/chair3.jpg" alt="Кресло"></div>
+      <div class="gallery-item" onclick="openLightbox('photos/chair4.jpg')"><img src="photos/chair4.jpg" alt="Кресло"></div>
+    </div>
   </div>
-  <div class="tech-layout reveal">
-    <div class="tech-video-wrap">
-      <div class="video-vertical">
-        <video autoplay muted loop playsinline preload="metadata" poster="photos/wardrobe1.jpg">
+
+  <!-- КРОВАТИ -->
+  <div class="subcat-panel" id="panel-krovati">
+    <div class="gallery">
+      <div class="gallery-item gallery-item--square" onclick="openLightbox('photos/bed1.webp')">
+        <img src="photos/bed1.webp" alt="Кровать">
+      </div>
+    </div>
+  </div>
+
+  <!-- ШКАФЫ -->
+  <div class="subcat-panel" id="panel-shkafy">
+    <div class="gallery">
+      <div class="gallery-item" onclick="openLightbox('photos/wardrobe1.jpg')">
+        <img src="photos/wardrobe1.jpg" alt="Шкаф">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- 03 КУХНЯ -->
+<div class="section-wrap" id="kitchen">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <h2 class="section-title">Кухня</h2>
+  </div>
+  <!--
+    kitchen-lift.mp4 — 720×960 (3:4 портрет)
+    Одно видео — выравниваем по левому краю, ограничиваем ширину
+  -->
+  <div style="max-width: 360px;">
+    <div class="video-card">
+      <div class="video-embed video-3-4">
+        <video controls preload="metadata" playsinline>
           <source src="photos/kitchen-lift.mp4" type="video/mp4">
         </video>
       </div>
-    </div>
-    <div>
-      <p class="s-sub" style="margin-bottom:3rem;">Умные системы хранения, встроенные лифты и скрытые механизмы — технологии, которые делают жизнь проще.</p>
-      <div class="tech-images">
-        <div class="g-card">
-          <img src="photos/wardrobe1.jpg" alt="Гардероб" loading="lazy">
-          <div class="g-card-overlay">
-            <div class="g-card-label">Хранение</div>
-            <div class="g-card-name">Гардероб</div>
-          </div>
-        </div>
-        <div class="g-card">
-          <img src="photos/bed1.webp" alt="Кровать" loading="lazy">
-          <div class="g-card-overlay">
-            <div class="g-card-label">Спальня</div>
-            <div class="g-card-name">Кровать</div>
-          </div>
-        </div>
-      </div>
+      <div class="video-label">Выдвижной лифт для посуды</div>
     </div>
   </div>
-</section>
+</div>
 
-<!-- TEXTURE & QUALITY
-     wood-tech.mp4    → 16:9, 1920×1080px
-     leather-tech.mp4 → 16:9, 1920×1080px -->
-<section id="materials">
-  <div class="reveal">
-    <p class="s-tag">Texture &amp; Quality</p>
-    <h2 class="s-title">Материалы, которые<br><em>говорят сами за себя</em></h2>
-  </div>
-  <div class="materials-grid reveal">
-    <div class="mat-card">
-      <div class="video-horizontal" style="border-radius:0;">
-        <video autoplay muted loop playsinline preload="metadata">
-          <source src="photos/wood-tech.mp4" type="video/mp4">
-        </video>
-      </div>
-      <span class="mat-label">Natural Wood Architecture</span>
-    </div>
-    <div class="mat-card">
-      <div class="video-horizontal" style="border-radius:0;">
-        <video autoplay muted loop playsinline preload="metadata">
-          <source src="photos/leather-tech.mp4" type="video/mp4">
-        </video>
-      </div>
-      <span class="mat-label">Premium Leather Selection</span>
-    </div>
-  </div>
-</section>
+<div class="sep"></div>
 
-<!-- CONTACT -->
-<section id="contact">
-  <div class="contact-grid">
-    <div class="reveal">
-      <p class="s-tag">Связаться</p>
-      <h2 class="s-title">Расскажите<br>о вашем <em>проекте</em></h2>
-      <p class="s-sub" style="margin-top:1.5rem;max-width:360px;">Первичная консультация бесплатна. Свяжемся в течение одного рабочего дня.</p>
-      <div class="c-details">
-        <div><div class="c-lbl">Телефон</div><div class="c-val">+7 (999) 000-00-00</div></div>
-        <div><div class="c-lbl">Email</div><div class="c-val"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1d75787171725d6e726869757f787c6f336f68">[email&#160;protected]</a></div></div>
-        <div><div class="c-lbl">Студия</div><div class="c-val">Москва, ул. Примерная, 12</div></div>
-        <div><div class="c-lbl">Часы работы</div><div class="c-val">Пн–Пт, 10:00–19:00</div></div>
-      </div>
-    </div>
-    <div class="reveal">
-      <!-- Замените YOUR_ID на ID формы с formspree.io -->
-      <form class="form" id="mainForm" action="https://formspree.io/f/YOUR_ID" method="POST">
-        <div class="f-row">
-          <div class="f-group">
-            <label class="f-lbl">Имя *</label>
-            <input class="f-input" type="text" name="name" placeholder="Ваше имя" required>
-          </div>
-          <div class="f-group">
-            <label class="f-lbl">Телефон *</label>
-            <input class="f-input" type="tel" name="phone" placeholder="+7 (___) ___-__-__" required>
-          </div>
-        </div>
-        <div class="f-group">
-          <label class="f-lbl">Email</label>
-          <input class="f-input" type="email" name="email" placeholder="your@email.ru">
-        </div>
-        <div class="f-row">
-          <div class="f-group">
-            <label class="f-lbl">Тип услуги</label>
-            <select class="f-select" name="service">
-              <option value="">Выберите</option>
-              <option>Дизайн интерьера</option>
-              <option>Ремонт под ключ</option>
-              <option>Мебель на заказ</option>
-              <option>Комплексный проект</option>
-            </select>
-          </div>
-          <div class="f-group">
-            <label class="f-lbl">Площадь</label>
-            <select class="f-select" name="area">
-              <option value="">Укажите</option>
-              <option>До 50 м²</option>
-              <option>50–80 м²</option>
-              <option>80–120 м²</option>
-              <option>120–200 м²</option>
-              <option>Более 200 м²</option>
-            </select>
-          </div>
-        </div>
-        <div class="f-group">
-          <label class="f-lbl">Сообщение</label>
-          <textarea class="f-textarea" name="message" placeholder="Стиль, особые пожелания, сроки…"></textarea>
-        </div>
-        <button type="submit" class="f-submit">Отправить заявку →</button>
-        <p class="f-note">Нажимая, вы соглашаетесь с политикой конфиденциальности</p>
-      </form>
-      <div class="success" id="successMsg">
-        <div class="success-title">Заявка отправлена</div>
-        <p class="success-sub">Мы свяжемся с вами в течение одного рабочего дня</p>
-      </div>
-    </div>
+<!-- КОНТАКТЫ -->
+<div class="contact-section" id="contact">
+  <div class="contact-inner">
+    <h2 class="contact-title">Обсудим проект</h2>
+    <p class="contact-sub">
+      Мебель и материалы под заказ<br>
+      Производство по чертежам<br>
+      Поставки и таможенное оформление
+    </p>
+    <a class="contact-link" href="mailto:info@southbearstudio.com">Написать нам</a>
   </div>
-</section>
+</div>
 
-<!-- FOOTER -->
 <footer>
-  <a class="f-logo" href="#">South <span>Bear</span> Studio</a>
-  <p class="f-copy">© 2026 South Bear Studio. All Rights Reserved.</p>
-  <nav class="f-nav">
-    <a href="#furniture">Мебель</a>
-    <a href="#tech">Технологии</a>
-    <a href="#contact">Контакты</a>
-  </nav>
+  <img src="photos/logo.png" alt="South Bear Studio">
+  <span>© 2025 South Bear Studio</span>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-// Cursor
-const cur=document.getElementById('cur'),curR=document.getElementById('curR');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
-(function animateCursor(){
-  cur.style.left=mx+'px';cur.style.top=my+'px';
-  rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;
-  curR.style.left=rx+'px';curR.style.top=ry+'px';
-  requestAnimationFrame(animateCursor);
-})();
-document.querySelectorAll('a,button,.g-card,.chair-card').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{cur.style.transform='translate(-50%,-50%) scale(2.5)';curR.style.transform='translate(-50%,-50%) scale(1.6)';});
-  el.addEventListener('mouseleave',()=>{cur.style.transform='translate(-50%,-50%) scale(1)';curR.style.transform='translate(-50%,-50%) scale(1)';});
-});
+<script>
+  // Мебель — фильтр с панелями
+  document.getElementById('furniture-tabs').querySelectorAll('.subcat-tag').forEach(tag => {
+    tag.addEventListener('click', () => {
+      document.getElementById('furniture-tabs').querySelectorAll('.subcat-tag').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('#furniture .subcat-panel').forEach(p => p.classList.remove('active'));
+      tag.classList.add('active');
+      const panel = document.getElementById('panel-' + tag.dataset.target);
+      if (panel) panel.classList.add('active');
+    });
+  });
 
-// Scroll reveal
-const obs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}});
-},{threshold:0.08});
-document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%4*0.12)+'s';obs.observe(el);});
-
-// Nav
-const nav=document.getElementById('mainNav');
-window.addEventListener('scroll',()=>{
-  if(window.scrollY>80){
-    nav.style.background='rgba(12,10,9,0.97)';
-    nav.style.backdropFilter='blur(20px)';
-    nav.style.borderBottom='1px solid rgba(255,255,255,0.06)';
-  } else {
-    nav.style.background='linear-gradient(to bottom,rgba(12,10,9,0.95),transparent)';
-    nav.style.backdropFilter='none';
-    nav.style.borderBottom='none';
+  // Лайтбокс
+  function openLightbox(src) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox').classList.add('open');
   }
-});
 
-// Form
-document.getElementById('mainForm')?.addEventListener('submit',async e=>{
-  e.preventDefault();
-  const btn=e.target.querySelector('.f-submit');
-  btn.textContent='Отправляем…';btn.disabled=true;
-  try{
-    const res=await fetch(e.target.action,{method:'POST',body:new FormData(e.target),headers:{Accept:'application/json'}});
-    if(res.ok){e.target.style.display='none';document.getElementById('successMsg').style.display='block';}
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.getElementById('lightbox-img').src = '';
+  }
+
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+</script>
+
+</body>
+</html>
