@@ -30,7 +30,6 @@
       overflow-x: hidden;
     }
 
-    /* ── NAV ── */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -51,7 +50,7 @@
 
     .nav-links {
       display: flex;
-      gap: 36px;
+      gap: 28px;
       list-style: none;
     }
 
@@ -66,7 +65,6 @@
 
     .nav-links a:hover { color: var(--accent); }
 
-    /* ── HERO ── */
     .hero {
       min-height: 100vh;
       display: flex;
@@ -122,7 +120,6 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* ── LAYOUT ── */
     .section-wrap {
       padding: 100px 48px;
       max-width: 1280px;
@@ -161,37 +158,6 @@
       align-self: center;
     }
 
-    /* ── TABS ── */
-    .subcats {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-bottom: 40px;
-    }
-
-    .subcat-tag {
-      padding: 7px 18px;
-      border: 1px solid var(--border);
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      cursor: pointer;
-      transition: all 0.25s;
-      user-select: none;
-    }
-
-    .subcat-tag:hover, .subcat-tag.active {
-      border-color: var(--accent);
-      color: var(--accent);
-      background: var(--accent-dim);
-    }
-
-    .subcat-panel { display: none; }
-    .subcat-panel.active { display: block; }
-
-    /* ── GALLERY ── */
-    /* Базовая сетка для портретных фото (3:4) */
     .gallery {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -205,13 +171,11 @@
       cursor: pointer;
     }
 
-    /* Ландшафтное фото — занимает 2 колонки */
     .gallery-item--wide {
       aspect-ratio: 2/1;
       grid-column: span 2;
     }
 
-    /* Квадратное фото */
     .gallery-item--square {
       aspect-ratio: 1/1;
     }
@@ -225,39 +189,10 @@
 
     .gallery-item:hover img { transform: scale(1.06); }
 
-    /* ── SUBSECTION LABEL ── */
-    .subsection-label {
-      font-size: 11px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin: 48px 0 20px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .subsection-label::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-    }
-
-    /* ── VIDEO GRID ── */
-    /* Сетка для видео 16:9 — по 2 в ряд */
     .video-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(440px, 1fr));
       gap: 20px;
-    }
-
-    /* Смешанная сетка — 16:9 и нестандартные рядом */
-    .video-grid--mixed {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr;
-      gap: 20px;
-      align-items: start;
     }
 
     .video-card {
@@ -265,7 +200,6 @@
       border: 1px solid var(--border);
     }
 
-    /* Контейнеры с правильными пропорциями */
     .video-16-9 { aspect-ratio: 16/9; }
     .video-1-1  { aspect-ratio: 1/1; }
     .video-3-4  { aspect-ratio: 3/4; }
@@ -291,7 +225,6 @@
       border-top: 1px solid var(--border);
     }
 
-    /* ── LIGHTBOX ── */
     .lightbox {
       display: none;
       position: fixed;
@@ -316,13 +249,12 @@
       font-size: 36px;
       color: var(--text-muted);
       cursor: pointer;
-      line-height: 1;
       transition: color 0.2s;
+      line-height: 1;
     }
 
     .lightbox-close:hover { color: var(--accent); }
 
-    /* ── MISC ── */
     .sep {
       width: 100%; height: 1px;
       background: linear-gradient(90deg, transparent, var(--border), transparent);
@@ -380,19 +312,11 @@
       filter: invert(1) brightness(0.5);
     }
 
-    /* ── RESPONSIVE ── */
-    @media (max-width: 900px) {
-      .video-grid--mixed {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-
     @media (max-width: 600px) {
       nav { padding: 16px 20px; }
       .nav-links { display: none; }
       .section-wrap { padding: 60px 20px; }
       .video-grid { grid-template-columns: 1fr; }
-      .video-grid--mixed { grid-template-columns: 1fr; }
       .gallery-item--wide { grid-column: span 1; aspect-ratio: 2/1; }
       footer { flex-direction: column; gap: 16px; text-align: center; }
     }
@@ -401,7 +325,7 @@
 <body>
 
 <div class="lightbox" id="lightbox" onclick="closeLightbox()">
-  <span class="lightbox-close">×</span>
+  <span class="lightbox-close">x</span>
   <img id="lightbox-img" src="" alt="">
 </div>
 
@@ -410,14 +334,17 @@
     <img src="photos/logo.png" alt="South Bear Studio">
   </a>
   <ul class="nav-links">
-    <li><a href="#interiors">Интерьеры</a></li>
-    <li><a href="#furniture">Мебель</a></li>
-    <li><a href="#kitchen">Кухня</a></li>
+    <li><a href="#interior">Интерьер</a></li>
+    <li><a href="#sofas">Диваны</a></li>
+    <li><a href="#chairs">Кресла</a></li>
+    <li><a href="#beds">Кровати</a></li>
+    <li><a href="#wardrobes">Шкафы</a></li>
+    <li><a href="#kitchen">Кухни</a></li>
+    <li><a href="#materials">Материалы</a></li>
     <li><a href="#contact">Контакты</a></li>
   </ul>
 </nav>
 
-<!-- HERO -->
 <div class="hero" id="top">
   <img class="hero-logo" src="photos/logo.png" alt="South Bear Studio">
   <p class="hero-tagline">Мебель и интерьеры под заказ</p>
@@ -427,198 +354,161 @@
 
 <div class="sep"></div>
 
-<!-- 01 ИНТЕРЬЕРЫ -->
-<div class="section-wrap" id="interiors">
+<!-- 01 ИНТЕРЬЕР -->
+<div class="section-wrap" id="interior">
   <div class="section-header">
     <span class="section-num">01</span>
-    <h2 class="section-title">Дизайн интерьеров</h2>
+    <h2 class="section-title">Интерьер</h2>
     <span class="section-desc">Галерея проектов</span>
   </div>
-
-  <!--
-    interior.webp  — 750×1000 (3:4 портрет)  → обычная карточка
-    interior2.jpg  — 959×492  (2:1 ландшафт) → широкая карточка на 2 колонки
-  -->
   <div class="gallery">
-    <div class="gallery-item" onclick="openLightbox('photos/interior.webp')">
-      <img src="photos/interior.webp" alt="Интерьер">
+    <div class="gallery-item" onclick="openLightbox('photos/interior/interior.webp')">
+      <img src="photos/interior/interior.webp" alt="Интерьер">
     </div>
-    <div class="gallery-item gallery-item--wide" onclick="openLightbox('photos/interior2.jpg')">
-      <img src="photos/interior2.jpg" alt="Интерьер">
+    <div class="gallery-item gallery-item--wide" onclick="openLightbox('photos/interior/interior2.jpg')">
+      <img src="photos/interior/interior2.jpg" alt="Интерьер">
     </div>
   </div>
 </div>
 
 <div class="sep"></div>
 
-<!-- 02 МЕБЕЛЬ -->
-<div class="section-wrap" id="furniture">
+<!-- 02 ДИВАНЫ -->
+<div class="section-wrap" id="sofas">
   <div class="section-header">
     <span class="section-num">02</span>
-    <h2 class="section-title">Мебель</h2>
+    <h2 class="section-title">Диваны</h2>
   </div>
-
-  <div class="subcats" id="furniture-tabs">
-    <span class="subcat-tag active" data-target="all">Все</span>
-    <span class="subcat-tag" data-target="divany">Диваны</span>
-    <span class="subcat-tag" data-target="kresla">Кресла</span>
-    <span class="subcat-tag" data-target="krovati">Кровати</span>
-    <span class="subcat-tag" data-target="shkafy">Шкафы</span>
-  </div>
-
-  <!-- ВСЕ -->
-  <div class="subcat-panel active" id="panel-all">
-
-    <div class="subsection-label">Диваны</div>
-    <!--
-      sofa_cass.jpg — 1188×1190 (≈1:1 квадрат)
-      sofa1–5.jpg   — ~750×880 (портрет ~5:6)  → используем 3:4
-    -->
-    <div class="gallery">
-      <div class="gallery-item gallery-item--square" onclick="openLightbox('photos/sofa_cass.jpg')">
-        <img src="photos/sofa_cass.jpg" alt="Диван">
-      </div>
-      <div class="gallery-item" onclick="openLightbox('photos/sofa1.jpg')"><img src="photos/sofa1.jpg" alt="Диван"></div>
-      <div class="gallery-item" onclick="openLightbox('photos/sofa2.jpg')"><img src="photos/sofa2.jpg" alt="Диван"></div>
-      <div class="gallery-item" onclick="openLightbox('photos/sofa3.jpg')"><img src="photos/sofa3.jpg" alt="Диван"></div>
-      <div class="gallery-item" onclick="openLightbox('photos/sofa4.jpg')"><img src="photos/sofa4.jpg" alt="Диван"></div>
-      <div class="gallery-item" onclick="openLightbox('photos/sofa5.jpg')"><img src="photos/sofa5.jpg" alt="Диван"></div>
+  <div class="gallery">
+    <div class="gallery-item gallery-item--square" onclick="openLightbox('photos/sofas/sofa_cass.jpg')">
+      <img src="photos/sofas/sofa_cass.jpg" alt="Диван">
     </div>
-
-    <div class="subsection-label">Кресла</div>
-    <!-- chair1–4: ~750×900 (портрет ~5:6) → 3:4 -->
-    <div class="gallery">
-      <div class="gallery-item" onclick="openLightbox('photos/chair1.jpg')"><img src="photos/chair1.jpg" alt="Кресло"></div>
-      <div class="gallery-item" onclick="openLightbox('photos/chair2.jpg')"><img src="photos/chair2.jpg" alt="Кресло"></div>
-      <div class="gallery-item" onclick="openLightbox('photos/chair3.jpg')"><img src="photos/chair3.jpg" alt="Кресло"></div>
-      <div class="gallery-item" onclick="openLightbox('photos/chair4.jpg')"><img src="photos/chair4.jpg" alt="Кресло"></div>
+    <div class="gallery-item" onclick="openLightbox('photos/sofas/sofa1.jpg')">
+      <img src="photos/sofas/sofa1.jpg" alt="Диван">
     </div>
-
-    <div class="subsection-label">Кровати</div>
-    <!-- bed1.webp — 800×800 (квадрат) -->
-    <div class="gallery">
-      <div class="gallery-item gallery-item--square" onclick="openLightbox('photos/bed1.webp')">
-        <img src="photos/bed1.webp" alt="Кровать">
-      </div>
+    <div class="gallery-item" onclick="openLightbox('photos/sofas/sofa2.jpg')">
+      <img src="photos/sofas/sofa2.jpg" alt="Диван">
     </div>
-
-    <div class="subsection-label">Шкафы</div>
-    <!-- wardrobe1.jpg — 742×960 (портрет ~3:4) -->
-    <div class="gallery">
-      <div class="gallery-item" onclick="openLightbox('photos/wardrobe1.jpg')">
-        <img src="photos/wardrobe1.jpg" alt="Шкаф">
-      </div>
+    <div class="gallery-item" onclick="openLightbox('photos/sofas/sofa3.jpg')">
+      <img src="photos/sofas/sofa3.jpg" alt="Диван">
     </div>
-
-    <div class="subsection-label">Видео</div>
-    <!--
-      sofa-video.mp4    — 720×720  (1:1 квадрат)
-      leather-tech.mp4  — 1280×720 (16:9)
-      wood-tech.mp4     — 1280×720 (16:9)
-
-      Раскладка: [16:9 широкий] [1:1] стоят рядом,
-      wood-tech идёт ниже на полную ширину — красиво и по пропорциям.
-    -->
-    <div class="video-grid--mixed">
-      <div class="video-card">
-        <div class="video-embed video-16-9">
-          <video controls preload="metadata" playsinline>
-            <source src="photos/leather-tech.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="video-label">Кожа для мебели</div>
-      </div>
-      <div class="video-card">
-        <div class="video-embed video-1-1">
-          <video controls preload="metadata" playsinline>
-            <source src="photos/sofa-video.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="video-label">Выдвижной диван</div>
-      </div>
-      <div class="video-card">
-        <div class="video-embed video-16-9">
-          <video controls preload="metadata" playsinline>
-            <source src="photos/wood-tech.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="video-label">О древесине</div>
-      </div>
+    <div class="gallery-item" onclick="openLightbox('photos/sofas/sofa4.jpg')">
+      <img src="photos/sofas/sofa4.jpg" alt="Диван">
+    </div>
+    <div class="gallery-item" onclick="openLightbox('photos/sofas/sofa5.jpg')">
+      <img src="photos/sofas/sofa5.jpg" alt="Диван">
     </div>
   </div>
-
-  <!-- ДИВАНЫ -->
-  <div class="subcat-panel" id="panel-divany">
-    <div class="gallery">
-      <div class="gallery-item gallery-item--square" onclick="openLightbox('photos/sofa_cass.jpg')"><img src="photos/sofa_cass.jpg" alt="Диван"></div>
-      <div class="gallery-item" onclick="openLightbox('photos/sofa1.jpg')"><img src="photos/sofa1.jpg" alt="Диван"></div>
-      <div class="gallery-item" onclick="openLightbox('photos/sofa2.jpg')"><img src="photos/sofa2.jpg" alt="Диван"></div>
-      <div class="gallery-item" onclick="openLightbox('photos/sofa3.jpg')"><img src="photos/sofa3.jpg" alt="Диван"></div>
-      <div class="gallery-item" onclick="openLightbox('photos/sofa4.jpg')"><img src="photos/sofa4.jpg" alt="Диван"></div>
-      <div class="gallery-item" onclick="openLightbox('photos/sofa5.jpg')"><img src="photos/sofa5.jpg" alt="Диван"></div>
-    </div>
-    <div class="subsection-label">Видео</div>
-    <div class="video-grid">
-      <div class="video-card">
-        <div class="video-embed video-1-1">
-          <video controls preload="metadata" playsinline>
-            <source src="photos/sofa-video.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="video-label">Выдвижной диван</div>
+  <div style="max-width: 440px; margin-top: 20px;">
+    <div class="video-card">
+      <div class="video-embed video-1-1">
+        <video controls preload="metadata" playsinline>
+          <source src="photos/sofas/sofa-video.mp4" type="video/mp4">
+        </video>
       </div>
-    </div>
-  </div>
-
-  <!-- КРЕСЛА -->
-  <div class="subcat-panel" id="panel-kresla">
-    <div class="gallery">
-      <div class="gallery-item" onclick="openLightbox('photos/chair1.jpg')"><img src="photos/chair1.jpg" alt="Кресло"></div>
-      <div class="gallery-item" onclick="openLightbox('photos/chair2.jpg')"><img src="photos/chair2.jpg" alt="Кресло"></div>
-      <div class="gallery-item" onclick="openLightbox('photos/chair3.jpg')"><img src="photos/chair3.jpg" alt="Кресло"></div>
-      <div class="gallery-item" onclick="openLightbox('photos/chair4.jpg')"><img src="photos/chair4.jpg" alt="Кресло"></div>
-    </div>
-  </div>
-
-  <!-- КРОВАТИ -->
-  <div class="subcat-panel" id="panel-krovati">
-    <div class="gallery">
-      <div class="gallery-item gallery-item--square" onclick="openLightbox('photos/bed1.webp')">
-        <img src="photos/bed1.webp" alt="Кровать">
-      </div>
-    </div>
-  </div>
-
-  <!-- ШКАФЫ -->
-  <div class="subcat-panel" id="panel-shkafy">
-    <div class="gallery">
-      <div class="gallery-item" onclick="openLightbox('photos/wardrobe1.jpg')">
-        <img src="photos/wardrobe1.jpg" alt="Шкаф">
-      </div>
+      <div class="video-label">Выдвижной диван</div>
     </div>
   </div>
 </div>
 
 <div class="sep"></div>
 
-<!-- 03 КУХНЯ -->
-<div class="section-wrap" id="kitchen">
+<!-- 03 КРЕСЛА -->
+<div class="section-wrap" id="chairs">
   <div class="section-header">
     <span class="section-num">03</span>
-    <h2 class="section-title">Кухня</h2>
+    <h2 class="section-title">Кресла</h2>
   </div>
-  <!--
-    kitchen-lift.mp4 — 720×960 (3:4 портрет)
-    Одно видео — выравниваем по левому краю, ограничиваем ширину
-  -->
+  <div class="gallery">
+    <div class="gallery-item" onclick="openLightbox('photos/chairs/chair1.jpg')">
+      <img src="photos/chairs/chair1.jpg" alt="Кресло">
+    </div>
+    <div class="gallery-item" onclick="openLightbox('photos/chairs/chair2.jpg')">
+      <img src="photos/chairs/chair2.jpg" alt="Кресло">
+    </div>
+    <div class="gallery-item" onclick="openLightbox('photos/chairs/chair3.jpg')">
+      <img src="photos/chairs/chair3.jpg" alt="Кресло">
+    </div>
+    <div class="gallery-item" onclick="openLightbox('photos/chairs/chair4.jpg')">
+      <img src="photos/chairs/chair4.jpg" alt="Кресло">
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- 04 КРОВАТИ -->
+<div class="section-wrap" id="beds">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <h2 class="section-title">Кровати</h2>
+  </div>
+  <div class="gallery">
+    <div class="gallery-item gallery-item--square" onclick="openLightbox('photos/beds/bed1.webp')">
+      <img src="photos/beds/bed1.webp" alt="Кровать">
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- 05 ШКАФЫ -->
+<div class="section-wrap" id="wardrobes">
+  <div class="section-header">
+    <span class="section-num">05</span>
+    <h2 class="section-title">Шкафы</h2>
+  </div>
+  <div class="gallery">
+    <div class="gallery-item" onclick="openLightbox('photos/wardrobes/wardrobe1.jpg')">
+      <img src="photos/wardrobes/wardrobe1.jpg" alt="Шкаф">
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- 06 КУХНИ -->
+<div class="section-wrap" id="kitchen">
+  <div class="section-header">
+    <span class="section-num">06</span>
+    <h2 class="section-title">Кухни</h2>
+  </div>
   <div style="max-width: 360px;">
     <div class="video-card">
       <div class="video-embed video-3-4">
         <video controls preload="metadata" playsinline>
-          <source src="photos/kitchen-lift.mp4" type="video/mp4">
+          <source src="photos/kitchen/kitchen-lift.mp4" type="video/mp4">
         </video>
       </div>
       <div class="video-label">Выдвижной лифт для посуды</div>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- 07 МАТЕРИАЛЫ -->
+<div class="section-wrap" id="materials">
+  <div class="section-header">
+    <span class="section-num">07</span>
+    <h2 class="section-title">Материалы</h2>
+  </div>
+  <div class="video-grid">
+    <div class="video-card">
+      <div class="video-embed video-16-9">
+        <video controls preload="metadata" playsinline>
+          <source src="photos/materials/leather-tech.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="video-label">Кожа для мебели</div>
+    </div>
+    <div class="video-card">
+      <div class="video-embed video-16-9">
+        <video controls preload="metadata" playsinline>
+          <source src="photos/materials/wood-tech.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="video-label">О древесине</div>
     </div>
   </div>
 </div>
@@ -640,22 +530,10 @@
 
 <footer>
   <img src="photos/logo.png" alt="South Bear Studio">
-  <span>© 2025 South Bear Studio</span>
+  <span>2025 South Bear Studio</span>
 </footer>
 
 <script>
-  // Мебель — фильтр с панелями
-  document.getElementById('furniture-tabs').querySelectorAll('.subcat-tag').forEach(tag => {
-    tag.addEventListener('click', () => {
-      document.getElementById('furniture-tabs').querySelectorAll('.subcat-tag').forEach(t => t.classList.remove('active'));
-      document.querySelectorAll('#furniture .subcat-panel').forEach(p => p.classList.remove('active'));
-      tag.classList.add('active');
-      const panel = document.getElementById('panel-' + tag.dataset.target);
-      if (panel) panel.classList.add('active');
-    });
-  });
-
-  // Лайтбокс
   function openLightbox(src) {
     document.getElementById('lightbox-img').src = src;
     document.getElementById('lightbox').classList.add('open');
@@ -666,7 +544,9 @@
     document.getElementById('lightbox-img').src = '';
   }
 
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeLightbox();
+  });
 </script>
 
 </body>
