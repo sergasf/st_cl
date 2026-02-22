@@ -320,7 +320,6 @@
       .gallery-item--wide { grid-column: span 1; aspect-ratio: 2/1; }
       footer { flex-direction: column; gap: 16px; text-align: center; }
     }
-
   </style>
 </head>
 <body>
@@ -355,7 +354,7 @@
 
 <div class="sep"></div>
 
-
+<!-- 01 ИНТЕРЬЕР -->
 <div class="section-wrap" id="interior">
   <div class="section-header">
     <span class="section-num">01</span>
@@ -364,53 +363,57 @@
   </div>
   <div class="gallery">
     <div class="gallery-item" onclick="openLightbox('photos/interior/interior.webp')">
-      <img src="photos/interior/interior.webp" alt="">
+      <img src="photos/interior/interior.webp" alt="Интерьер">
     </div>
     <div class="gallery-item gallery-item--wide" onclick="openLightbox('photos/interior/interior2.jpg')">
-      <img src="photos/interior/interior2.jpg" alt="">
+      <img src="photos/interior/interior2.jpg" alt="Интерьер">
     </div>
   </div>
 </div>
 
 <div class="sep"></div>
 
+<!-- 02 ДИВАНЫ -->
 <div class="section-wrap" id="sofas">
   <div class="section-header">
     <span class="section-num">02</span>
     <h2 class="section-title">Диваны</h2>
   </div>
   <div class="gallery">
-    <div class="gallery-item gallery-item--square" onclick="openLightbox('photos/sofas/sofa1.jpg')">
-      <img src="photos/sofas/sofa1.jpg" alt="">
+    <div class="gallery-item gallery-item--square" onclick="openLightbox('photos/sofas/sofa_cass.jpg')">
+      <img src="photos/sofas/sofa_cass.jpg" alt="Диван">
+    </div>
+    <div class="gallery-item" onclick="openLightbox('photos/sofas/sofa1.jpg')">
+      <img src="photos/sofas/sofa1.jpg" alt="Диван">
     </div>
     <div class="gallery-item" onclick="openLightbox('photos/sofas/sofa2.jpg')">
-      <img src="photos/sofas/sofa2.jpg" alt="">
+      <img src="photos/sofas/sofa2.jpg" alt="Диван">
     </div>
-    <div class="gallery-item gallery-item--square" onclick="openLightbox('photos/sofas/sofa3.jpg')">
-      <img src="photos/sofas/sofa3.jpg" alt="">
+    <div class="gallery-item" onclick="openLightbox('photos/sofas/sofa3.jpg')">
+      <img src="photos/sofas/sofa3.jpg" alt="Диван">
     </div>
-    <div class="gallery-item gallery-item--square" onclick="openLightbox('photos/sofas/sofa4.jpg')">
-      <img src="photos/sofas/sofa4.jpg" alt="">
+    <div class="gallery-item" onclick="openLightbox('photos/sofas/sofa4.jpg')">
+      <img src="photos/sofas/sofa4.jpg" alt="Диван">
     </div>
-    <div class="gallery-item gallery-item--square" onclick="openLightbox('photos/sofas/sofa5.jpg')">
-      <img src="photos/sofas/sofa5.jpg" alt="">
-    </div>
-    <div class="gallery-item gallery-item--square" onclick="openLightbox('photos/sofas/sofa_cass.jpg')">
-      <img src="photos/sofas/sofa_cass.jpg" alt="">
+    <div class="gallery-item" onclick="openLightbox('photos/sofas/sofa5.jpg')">
+      <img src="photos/sofas/sofa5.jpg" alt="Диван">
     </div>
   </div>
+  <div style="max-width: 440px; margin-top: 20px;">
     <div class="video-card">
-      <div class="video-embed video-16-9">
+      <div class="video-embed video-1-1">
         <video controls preload="metadata" playsinline>
           <source src="photos/sofas/sofa-video.mp4" type="video/mp4">
         </video>
       </div>
-      <div class="video-label">Sofa video</div>
+      <div class="video-label">Выдвижной диван</div>
     </div>
+  </div>
 </div>
 
 <div class="sep"></div>
 
+<!-- 03 КРЕСЛА -->
 <div class="section-wrap" id="chairs">
   <div class="section-header">
     <span class="section-num">03</span>
@@ -418,22 +421,23 @@
   </div>
   <div class="gallery">
     <div class="gallery-item" onclick="openLightbox('photos/chairs/chair1.jpg')">
-      <img src="photos/chairs/chair1.jpg" alt="">
+      <img src="photos/chairs/chair1.jpg" alt="Кресло">
     </div>
     <div class="gallery-item" onclick="openLightbox('photos/chairs/chair2.jpg')">
-      <img src="photos/chairs/chair2.jpg" alt="">
+      <img src="photos/chairs/chair2.jpg" alt="Кресло">
     </div>
     <div class="gallery-item" onclick="openLightbox('photos/chairs/chair3.jpg')">
-      <img src="photos/chairs/chair3.jpg" alt="">
+      <img src="photos/chairs/chair3.jpg" alt="Кресло">
     </div>
     <div class="gallery-item" onclick="openLightbox('photos/chairs/chair4.jpg')">
-      <img src="photos/chairs/chair4.jpg" alt="">
+      <img src="photos/chairs/chair4.jpg" alt="Кресло">
     </div>
   </div>
 </div>
 
 <div class="sep"></div>
 
+<!-- 04 КРОВАТИ -->
 <div class="section-wrap" id="beds">
   <div class="section-header">
     <span class="section-num">04</span>
@@ -441,13 +445,14 @@
   </div>
   <div class="gallery">
     <div class="gallery-item gallery-item--square" onclick="openLightbox('photos/beds/bed1.webp')">
-      <img src="photos/beds/bed1.webp" alt="">
+      <img src="photos/beds/bed1.webp" alt="Кровать">
     </div>
   </div>
 </div>
 
 <div class="sep"></div>
 
+<!-- 05 ШКАФЫ -->
 <div class="section-wrap" id="wardrobes">
   <div class="section-header">
     <span class="section-num">05</span>
@@ -455,30 +460,34 @@
   </div>
   <div class="gallery">
     <div class="gallery-item" onclick="openLightbox('photos/wardrobes/wardrobe1.jpg')">
-      <img src="photos/wardrobes/wardrobe1.jpg" alt="">
+      <img src="photos/wardrobes/wardrobe1.jpg" alt="Шкаф">
     </div>
   </div>
 </div>
 
 <div class="sep"></div>
 
+<!-- 06 КУХНИ -->
 <div class="section-wrap" id="kitchen">
   <div class="section-header">
     <span class="section-num">06</span>
     <h2 class="section-title">Кухни</h2>
   </div>
+  <div style="max-width: 360px;">
     <div class="video-card">
-      <div class="video-embed video-16-9">
+      <div class="video-embed video-3-4">
         <video controls preload="metadata" playsinline>
           <source src="photos/kitchen/kitchen-lift.mp4" type="video/mp4">
         </video>
       </div>
-      <div class="video-label">Kitchen lift</div>
+      <div class="video-label">Выдвижной лифт для посуды</div>
     </div>
+  </div>
 </div>
 
 <div class="sep"></div>
 
+<!-- 07 МАТЕРИАЛЫ -->
 <div class="section-wrap" id="materials">
   <div class="section-header">
     <span class="section-num">07</span>
@@ -491,7 +500,7 @@
           <source src="photos/materials/leather-tech.mp4" type="video/mp4">
         </video>
       </div>
-      <div class="video-label">Leather tech</div>
+      <div class="video-label">Кожа для мебели</div>
     </div>
     <div class="video-card">
       <div class="video-embed video-16-9">
@@ -499,14 +508,14 @@
           <source src="photos/materials/wood-tech.mp4" type="video/mp4">
         </video>
       </div>
-      <div class="video-label">Wood tech</div>
+      <div class="video-label">О древесине</div>
     </div>
   </div>
 </div>
 
 <div class="sep"></div>
 
-
+<!-- КОНТАКТЫ -->
 <div class="contact-section" id="contact">
   <div class="contact-inner">
     <h2 class="contact-title">Обсудим проект</h2>
@@ -525,7 +534,6 @@
 </footer>
 
 <script>
-
   function openLightbox(src) {
     document.getElementById('lightbox-img').src = src;
     document.getElementById('lightbox').classList.add('open');
@@ -539,7 +547,6 @@
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') closeLightbox();
   });
-
 </script>
 
 </body>
