@@ -520,7 +520,7 @@ footer {
     <!-- Карточка 2: правый верх — квадратное видео -->
     <div class="g-card">
       <div class="video-square" style="max-width:100%;height:100%;">
-        <video controls playsinline preload="metadata" poster="photos/sofa1.jpg">
+        <video autoplay muted loop playsinline preload="metadata" poster="photos/sofa1.jpg">
           <source src="photos/sofa-video.mp4" type="video/mp4">
         </video>
       </div>
@@ -600,7 +600,7 @@ footer {
   <div class="tech-layout reveal">
     <div class="tech-video-wrap">
       <div class="video-vertical">
-        <video controls playsinline preload="metadata" poster="photos/wardrobe1.jpg">
+        <video autoplay muted loop playsinline preload="metadata" poster="photos/wardrobe1.jpg">
           <source src="photos/kitchen-lift.mp4" type="video/mp4">
         </video>
       </div>
@@ -638,7 +638,7 @@ footer {
   <div class="materials-grid reveal">
     <div class="mat-card">
       <div class="video-horizontal" style="border-radius:0;">
-        <video controls playsinline preload="metadata">
+        <video autoplay muted loop playsinline preload="metadata">
           <source src="photos/wood-tech.mp4" type="video/mp4">
         </video>
       </div>
@@ -646,7 +646,7 @@ footer {
     </div>
     <div class="mat-card">
       <div class="video-horizontal" style="border-radius:0;">
-        <video controls playsinline preload="metadata">
+        <video autoplay muted loop playsinline preload="metadata">
           <source src="photos/leather-tech.mp4" type="video/mp4">
         </video>
       </div>
@@ -664,7 +664,7 @@ footer {
       <p class="s-sub" style="margin-top:1.5rem;max-width:360px;">Первичная консультация бесплатна. Свяжемся в течение одного рабочего дня.</p>
       <div class="c-details">
         <div><div class="c-lbl">Телефон</div><div class="c-val">+7 (999) 000-00-00</div></div>
-        <div><div class="c-lbl">Email</div><div class="c-val">hello@southbear.ru</div></div>
+        <div><div class="c-lbl">Email</div><div class="c-val"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1d75787171725d6e726869757f787c6f336f68">[email&#160;protected]</a></div></div>
         <div><div class="c-lbl">Студия</div><div class="c-val">Москва, ул. Примерная, 12</div></div>
         <div><div class="c-lbl">Часы работы</div><div class="c-val">Пн–Пт, 10:00–19:00</div></div>
       </div>
@@ -735,7 +735,7 @@ footer {
   </nav>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // Cursor
 const cur=document.getElementById('cur'),curR=document.getElementById('curR');
 let mx=0,my=0,rx=0,ry=0;
@@ -779,9 +779,3 @@ document.getElementById('mainForm')?.addEventListener('submit',async e=>{
   try{
     const res=await fetch(e.target.action,{method:'POST',body:new FormData(e.target),headers:{Accept:'application/json'}});
     if(res.ok){e.target.style.display='none';document.getElementById('successMsg').style.display='block';}
-    else{btn.textContent='Ошибка — попробуйте ещё раз';btn.disabled=false;}
-  }catch{btn.textContent='Ошибка — попробуйте ещё раз';btn.disabled=false;}
-});
-</script>
-</body>
-</html>
