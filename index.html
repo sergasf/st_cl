@@ -1,601 +1,225 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>South Bear Studio</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>South Bear Studio | Дизайн и Оснащение</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;600&display=swap');
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; background-color: #fcfcfc; }
 
-    :root {
-      --bg: #0e0e0e;
-      --surface: #161616;
-      --border: #2a2a2a;
-      --text: #e8e2d9;
-      --text-muted: #7a7570;
-      --accent: #c8a96e;
-      --accent-dim: rgba(200,169,110,0.12);
-    }
+        /* ─── HERO ───
+           interior.webp  → вертикальная (левая), рекомендуем 900×1600px
+           interior2.jpg  → горизонтальная (правая, md+), рекомендуем 1600×900px
+           object-fit:cover подгонит любое соотношение */
+        .hero-img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(20%) brightness(0.6); }
 
-    html { scroll-behavior: smooth; }
+        /* ─── ВИДЕО-КОНТЕЙНЕРЫ ───
+           sofa-video.mp4    → 1:1  → рекомендуем 1080×1080px
+           kitchen-lift.mp4  → 3:4  → рекомендуем 1080×1440px
+           wood-tech.mp4     → 16:9 → рекомендуем 1920×1080px
+           leather-tech.mp4  → 16:9 → рекомендуем 1920×1080px */
+        .video-horizontal { aspect-ratio: 16/9; width: 100%; border-radius: 1.5rem; overflow: hidden; background: #111; }
+        .video-square     { aspect-ratio: 1/1;  width: 100%; max-width: 500px; border-radius: 1.5rem; overflow: hidden; background: #111; margin: 0 auto; }
+        .video-vertical   { aspect-ratio: 3/4;  width: 100%; max-width: 380px; border-radius: 1.5rem; overflow: hidden; background: #111; margin: 0 auto; }
+        video { width: 100%; height: 100%; object-fit: cover; }
 
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 300;
-      line-height: 1.7;
-      overflow-x: hidden;
-    }
+        /* ─── ГАЛЕРЕЯ ───
+           sofa_cass.jpg → 2:3  → рекомендуем 800×1200px
+           sofa1/2.jpg   → 1:1  → рекомендуем 800×800px
+           chair1-4.jpg  → 1:1  → рекомендуем 600×600px (обрежется в круг)
+           wardrobe1.jpg → 3:4  → рекомендуем 800×1067px
+           bed1.webp     → 1:1  → рекомендуем 800×800px
+           logo.jpg      → горизонтальный → рекомендуем 400×120px (лучше .png с прозрачностью) */
+        .gallery-img { transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); object-fit: cover; width: 100%; height: 100%; }
+        .gallery-img:hover { transform: scale(1.04); }
 
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 18px 48px;
-      background: rgba(14,14,14,0.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .nav-logo img {
-      height: 36px;
-      filter: invert(1) brightness(0.9);
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 36px;
-      list-style: none;
-    }
-
-    .nav-links a {
-      color: var(--text-muted);
-      text-decoration: none;
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      transition: color 0.3s;
-    }
-
-    .nav-links a:hover { color: var(--accent); }
-
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 120px 48px 80px;
-      position: relative;
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(200,169,110,0.07) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .hero-logo {
-      width: min(420px, 80vw);
-      filter: invert(1) brightness(0.95);
-      margin-bottom: 40px;
-      animation: fadeUp 1s ease both;
-    }
-
-    .hero-tagline {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(18px, 2.5vw, 26px);
-      font-style: italic;
-      color: var(--text-muted);
-      letter-spacing: 0.04em;
-      animation: fadeUp 1s 0.2s ease both;
-    }
-
-    .hero-divider {
-      width: 60px; height: 1px;
-      background: var(--accent);
-      margin: 32px auto;
-      animation: fadeUp 1s 0.3s ease both;
-    }
-
-    .hero-sub {
-      font-size: 12px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      animation: fadeUp 1s 0.4s ease both;
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(28px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    .section-wrap {
-      padding: 100px 48px;
-      max-width: 1280px;
-      margin: 0 auto;
-    }
-
-    .section-header {
-      display: flex;
-      align-items: baseline;
-      gap: 24px;
-      margin-bottom: 60px;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 24px;
-    }
-
-    .section-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 13px;
-      color: var(--accent);
-      letter-spacing: 0.1em;
-    }
-
-    .section-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(32px, 4vw, 52px);
-      font-weight: 300;
-      letter-spacing: 0.02em;
-      flex: 1;
-    }
-
-    .section-desc {
-      font-size: 12px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      align-self: center;
-    }
-
-    .subcats {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-bottom: 40px;
-    }
-
-    .subcat-tag {
-      padding: 7px 18px;
-      border: 1px solid var(--border);
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      cursor: pointer;
-      transition: all 0.25s;
-      user-select: none;
-    }
-
-    .subcat-tag:hover, .subcat-tag.active {
-      border-color: var(--accent);
-      color: var(--accent);
-      background: var(--accent-dim);
-    }
-
-    .subcat-panel { display: none; }
-    .subcat-panel.active { display: block; }
-
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 3px;
-    }
-
-    .gallery-item {
-      aspect-ratio: 4/3;
-      overflow: hidden;
-      background: var(--surface);
-      cursor: pointer;
-    }
-
-    .gallery-item img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      transition: transform 0.6s ease;
-      display: block;
-    }
-
-    .gallery-item:hover img { transform: scale(1.06); }
-
-    .subsection-label {
-      font-size: 11px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin: 48px 0 20px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .subsection-label::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-    }
-
-    .video-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(440px, 1fr));
-      gap: 20px;
-    }
-
-    .video-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-    }
-
-    .video-embed {
-      width: 100%;
-      aspect-ratio: 16/9;
-      background: #080808;
-    }
-
-    .video-embed iframe {
-      width: 100%; height: 100%;
-      border: none;
-      display: block;
-    }
-
-    .video-label {
-      padding: 14px 20px;
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      border-top: 1px solid var(--border);
-    }
-
-    /* LIGHTBOX */
-    .lightbox {
-      display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 200;
-      background: rgba(0,0,0,0.92);
-      align-items: center;
-      justify-content: center;
-    }
-
-    .lightbox.open { display: flex; }
-
-    .lightbox img {
-      max-width: 90vw;
-      max-height: 90vh;
-      object-fit: contain;
-    }
-
-    .lightbox-close {
-      position: absolute;
-      top: 24px; right: 32px;
-      font-size: 36px;
-      color: var(--text-muted);
-      cursor: pointer;
-      line-height: 1;
-      transition: color 0.2s;
-    }
-
-    .lightbox-close:hover { color: var(--accent); }
-
-    .sep {
-      width: 100%; height: 1px;
-      background: linear-gradient(90deg, transparent, var(--border), transparent);
-    }
-
-    .contact-section {
-      text-align: center;
-      padding: 100px 48px;
-    }
-
-    .contact-inner { max-width: 480px; margin: 0 auto; }
-
-    .contact-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(28px, 3.5vw, 44px);
-      font-weight: 300;
-      margin-bottom: 16px;
-    }
-
-    .contact-sub {
-      font-size: 12px;
-      color: var(--text-muted);
-      letter-spacing: 0.1em;
-      margin-bottom: 40px;
-      line-height: 2;
-    }
-
-    .contact-link {
-      display: inline-block;
-      padding: 14px 40px;
-      border: 1px solid var(--accent);
-      color: var(--accent);
-      text-decoration: none;
-      font-size: 11px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      transition: all 0.3s;
-    }
-
-    .contact-link:hover { background: var(--accent); color: var(--bg); }
-
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 32px 48px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 11px;
-      color: var(--text-muted);
-      letter-spacing: 0.08em;
-    }
-
-    footer img {
-      height: 24px;
-      filter: invert(1) brightness(0.5);
-    }
-
-    @media (max-width: 768px) {
-      nav { padding: 16px 20px; }
-      .nav-links { display: none; }
-      .section-wrap { padding: 60px 20px; }
-      .video-grid { grid-template-columns: 1fr; }
-      footer { flex-direction: column; gap: 16px; text-align: center; }
-    }
-  </style>
+        .fade-in { opacity: 0; transform: translateY(20px); transition: all 0.8s ease-out; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+    </style>
 </head>
-<body>
+<body class="text-stone-900">
 
-<!--
-  =============================================
-  ПЕРЕИМЕНУЙТЕ ФАЙЛЫ ПЕРЕД ЗАГРУЗКОЙ:
-  =============================================
-  logo.jpg           → без изменений
-  интерьер.webp      → interior.webp
-  диваны casa.jpg    → divany-casa.jpg
-  диваны.jpg         → divany.jpg
-  диваны2.jpg        → divany2.jpg
-  диваны3.jpg        → divany3.jpg
-  диваны4.jpg        → divany4.jpg
-  диваны5.jpg        → divany5.jpg
-  кресло.jpg         → kreslo.jpg
-  кресло2.jpg        → kreslo2.jpg
-  кресло3.jpg        → kreslo3.jpg
-  кресло4.jpg        → kreslo4.jpg
-  кровать.webp       → krovat.webp
-  шкаф.jpg           → shkaf.jpg
-  =============================================
--->
-
-<div class="lightbox" id="lightbox" onclick="closeLightbox()">
-  <span class="lightbox-close">×</span>
-  <img id="lightbox-img" src="" alt="">
-</div>
-
-<nav>
-  <a class="nav-logo" href="#top">
-    <img src="photos/logo.jpg" alt="South Bear Studio">
-  </a>
-  <ul class="nav-links">
-    <li><a href="#interiors">Интерьеры</a></li>
-    <li><a href="#furniture">Мебель</a></li>
-    <li><a href="#kitchen">Кухня</a></li>
-    <li><a href="#contact">Контакты</a></li>
-  </ul>
-</nav>
-
-<!-- HERO -->
-<div class="hero" id="top">
-  <img class="hero-logo" src="photos/logo.jpg" alt="South Bear Studio">
-  <p class="hero-tagline">Мебель и интерьеры под заказ</p>
-  <div class="hero-divider"></div>
-  <p class="hero-sub">Производство · Поставки · Проектирование</p>
-</div>
-
-<div class="sep"></div>
-
-<!-- 01 ИНТЕРЬЕРЫ -->
-<div class="section-wrap" id="interiors">
-  <div class="section-header">
-    <span class="section-num">01</span>
-    <h2 class="section-title">Дизайн интерьеров</h2>
-    <span class="section-desc">Галерея проектов</span>
-  </div>
-  <div class="gallery">
-    <div class="gallery-item" onclick="openLightbox('photos/interior.webp')">
-      <img src="photos/interior.webp" alt="Интерьер">
-    </div>
-    <div class="gallery-item" onclick="openLightbox('photos/interior2.jpg')">
-      <img src="photos/interior2.jpg" alt="Интерьер">
-    </div>
-    <!-- Новые фото: <div class="gallery-item" onclick="openLightbox('photos/ИМЯ.jpg')"><img src="photos/ИМЯ.jpg" alt=""></div> -->
-  </div>
-</div>
-
-<div class="sep"></div>
-
-<!-- 02 МЕБЕЛЬ -->
-<div class="section-wrap" id="furniture">
-  <div class="section-header">
-    <span class="section-num">02</span>
-    <h2 class="section-title">Мебель</h2>
-  </div>
-
-  <div class="subcats" id="furniture-tabs">
-    <span class="subcat-tag active" data-target="all">Все</span>
-    <span class="subcat-tag" data-target="divany">Диваны</span>
-    <span class="subcat-tag" data-target="kresla">Кресла</span>
-    <span class="subcat-tag" data-target="krovati">Кровати</span>
-    <span class="subcat-tag" data-target="shkafy">Шкафы</span>
-  </div>
-
-  <!-- ВСЕ -->
-  <div class="subcat-panel active" id="panel-all">
-
-    <div class="subsection-label">Диваны</div>
-    <div class="gallery">
-      <div class="gallery-item" onclick="openLightbox('photos/sofa_cass.jpg')"><img src="photos/sofa_cass.jpg" alt="Диван"></div>
-      <div class="gallery-item" onclick="openLightbox('photos/sofa1.jpg')"><img src="photos/sofa1.jpg" alt="Диван"></div>
-      <div class="gallery-item" onclick="openLightbox('photos/sofa2.jpg')"><img src="photos/sofa2.jpg" alt="Диван"></div>
-      <div class="gallery-item" onclick="openLightbox('photos/sofa3.jpg')"><img src="photos/sofa3.jpg" alt="Диван"></div>
-      <div class="gallery-item" onclick="openLightbox('photos/sofa4.jpg')"><img src="photos/sofa4.jpg" alt="Диван"></div>
-      <div class="gallery-item" onclick="openLightbox('photos/sofa5.jpg')"><img src="photos/sofa5.jpg" alt="Диван"></div>
-    </div>
-
-    <div class="subsection-label">Кресла</div>
-    <div class="gallery">
-      <div class="gallery-item" onclick="openLightbox('photos/chair1.jpg')"><img src="photos/chair1.jpg" alt="Кресло"></div>
-      <div class="gallery-item" onclick="openLightbox('photos/chair2.jpg')"><img src="photos/chair2.jpg" alt="Кресло"></div>
-      <div class="gallery-item" onclick="openLightbox('photos/chair3.jpg')"><img src="photos/chair3.jpg" alt="Кресло"></div>
-      <div class="gallery-item" onclick="openLightbox('photos/chair4.jpg')"><img src="photos/chair4.jpg" alt="Кресло"></div>
-    </div>
-
-    <div class="subsection-label">Кровати</div>
-    <div class="gallery">
-      <div class="gallery-item" onclick="openLightbox('photos/bed1.webp')"><img src="photos/bed1.webp" alt="Кровать"></div>
-    </div>
-
-    <div class="subsection-label">Шкафы</div>
-    <div class="gallery">
-      <div class="gallery-item" onclick="openLightbox('photos/wardrobe1.jpg')"><img src="photos/wardrobe1.jpg" alt="Шкаф"></div>
-    </div>
-
-    <div class="subsection-label">Видео</div>
-    <div class="video-grid">
-      <div class="video-card">
-        <div class="video-embed">
-          <iframe src="https://vk.com/video_ext.php?oid=-215327661&id=456239021&hd=2" allowfullscreen></iframe>
+    <!-- NAV -->
+    <nav class="fixed top-0 z-50 w-full bg-white/90 backdrop-blur-md border-b border-stone-100">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <!-- logo.jpg: 400×120px, лучше logo.png с прозрачным фоном -->
+                <img src="photos/logo.jpg" alt="South Bear Studio" class="h-8 md:h-10 object-contain" loading="eager">
+                <span class="font-bold tracking-[0.2em] text-[10px] md:text-xs uppercase">South Bear Studio</span>
+            </div>
+            <div class="hidden md:flex space-x-8 font-medium uppercase text-[10px] tracking-widest text-stone-500">
+                <a href="#furniture" class="hover:text-amber-900 transition">Мебель</a>
+                <a href="#tech"      class="hover:text-amber-900 transition">Технологии</a>
+                <a href="#materials" class="hover:text-amber-900 transition">Материалы</a>
+            </div>
         </div>
-        <div class="video-label">Выдвижной диван</div>
-      </div>
-      <div class="video-card">
-        <div class="video-embed">
-          <iframe src="https://vk.com/video_ext.php?oid=-215327661&id=456239018&hd=2" allowfullscreen></iframe>
+    </nav>
+
+    <!-- HERO
+         Два фото на 90vh высоты экрана.
+         interior.webp  — вертикальная фотография, 900×1600px
+         interior2.jpg  — горизонтальная фотография, 1600×900px
+         Оба файла в /photos/  -->
+    <header class="relative h-[90vh] flex items-center justify-center bg-stone-950 overflow-hidden">
+        <div class="absolute inset-0 grid grid-cols-1 md:grid-cols-2">
+            <img src="photos/interior.webp"  class="hero-img" alt="Интерьер" loading="eager">
+            <img src="photos/interior2.jpg"  class="hero-img hidden md:block" alt="Интерьер широкий" loading="eager">
         </div>
-        <div class="video-label">Кожа для мебели</div>
-      </div>
-      <div class="video-card">
-        <div class="video-embed">
-          <iframe src="https://vk.com/video_ext.php?oid=-215327661&id=456239017&hd=2" allowfullscreen></iframe>
+        <div class="absolute inset-0 bg-black/30"></div>
+        <div class="relative text-center px-6">
+            <h1 class="text-6xl md:text-9xl font-extralight text-white mb-4 tracking-tighter uppercase">South Bear</h1>
+            <p class="text-amber-500/80 text-xs md:text-sm uppercase tracking-[0.7em] font-light">Architectural Interior Solutions</p>
         </div>
-        <div class="video-label">О древесине</div>
-      </div>
-    </div>
-  </div>
+    </header>
 
-  <!-- ДИВАНЫ -->
-  <div class="subcat-panel" id="panel-divany">
-    <div class="gallery">
-      <div class="gallery-item" onclick="openLightbox('photos/sofa_cass.jpg')"><img src="photos/sofa_cass.jpg" alt="Диван"></div>
-      <div class="gallery-item" onclick="openLightbox('photos/sofa1.jpg')"><img src="photos/sofa1.jpg" alt="Диван"></div>
-      <div class="gallery-item" onclick="openLightbox('photos/sofa2.jpg')"><img src="photos/sofa2.jpg" alt="Диван"></div>
-      <div class="gallery-item" onclick="openLightbox('photos/sofa3.jpg')"><img src="photos/sofa3.jpg" alt="Диван"></div>
-      <div class="gallery-item" onclick="openLightbox('photos/sofa4.jpg')"><img src="photos/sofa4.jpg" alt="Диван"></div>
-      <div class="gallery-item" onclick="openLightbox('photos/sofa5.jpg')"><img src="photos/sofa5.jpg" alt="Диван"></div>
-    </div>
-    <div class="subsection-label">Видео</div>
-    <div class="video-grid">
-      <div class="video-card">
-        <div class="video-embed">
-          <iframe src="https://vk.com/video_ext.php?oid=-215327661&id=456239021&hd=2" allowfullscreen></iframe>
+    <main class="container mx-auto px-6">
+
+        <!-- ─── LIVING COLLECTION ─── -->
+        <section id="furniture" class="py-32 fade-in">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+
+                <div class="lg:col-span-5 space-y-8">
+                    <h2 class="text-5xl font-light uppercase tracking-tight">Living <br>Collection</h2>
+
+                    <!-- sofa-video.mp4: квадрат 1:1, рекомендуем 1080×1080px
+                         poster = sofa_cass.jpg (превью до нажатия play) -->
+                    <div class="video-square shadow-2xl">
+                        <video controls playsinline preload="metadata" poster="photos/sofa_cass.jpg">
+                            <source src="photos/sofa-video.mp4" type="video/mp4">
+                        </video>
+                    </div>
+
+                    <p class="text-stone-500 text-lg font-light leading-relaxed">
+                        Квадратные формы и выверенная эргономика. Наши диваны — это баланс между функциональностью и чистым искусством.
+                    </p>
+                </div>
+
+                <!-- sofa_cass.jpg: вертикальная 800×1200px (2:3)
+                     sofa1.jpg, sofa2.jpg: квадрат 800×800px (1:1) -->
+                <div class="lg:col-span-7 grid grid-cols-2 gap-4">
+                    <div class="rounded-3xl overflow-hidden h-80 lg:h-[500px]">
+                        <img src="photos/sofa_cass.jpg" class="gallery-img" alt="Диван Cassandra" loading="lazy">
+                    </div>
+                    <div class="grid grid-rows-2 gap-4">
+                        <div class="rounded-3xl overflow-hidden" style="height:242px;">
+                            <img src="photos/sofa1.jpg" class="gallery-img" alt="Диван 1" loading="lazy">
+                        </div>
+                        <div class="rounded-3xl overflow-hidden" style="height:242px;">
+                            <img src="photos/sofa2.jpg" class="gallery-img" alt="Диван 2" loading="lazy">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── КРЕСЛА: КРУГОВАЯ ГАЛЕРЕЯ ───
+             chair1-4.jpg: квадрат 600×600px (1:1)
+             Центр кадра — само кресло, фон однотонный -->
+        <section class="py-20 fade-in bg-stone-50 -mx-6 px-6 rounded-[4rem]">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-6xl mx-auto">
+                <div class="space-y-4 text-center">
+                    <div class="aspect-square rounded-full overflow-hidden shadow-xl border-4 border-white">
+                        <img src="photos/chair1.jpg" class="gallery-img" alt="Кресло A1" loading="lazy">
+                    </div>
+                    <span class="text-[10px] uppercase tracking-widest opacity-40">Series A1</span>
+                </div>
+                <div class="space-y-4 text-center">
+                    <div class="aspect-square rounded-full overflow-hidden shadow-xl border-4 border-white">
+                        <img src="photos/chair2.jpg" class="gallery-img" alt="Кресло A2" loading="lazy">
+                    </div>
+                    <span class="text-[10px] uppercase tracking-widest opacity-40">Series A2</span>
+                </div>
+                <div class="space-y-4 text-center">
+                    <div class="aspect-square rounded-full overflow-hidden shadow-xl border-4 border-white">
+                        <img src="photos/chair3.jpg" class="gallery-img" alt="Кресло A3" loading="lazy">
+                    </div>
+                    <span class="text-[10px] uppercase tracking-widest opacity-40">Series A3</span>
+                </div>
+                <div class="space-y-4 text-center">
+                    <div class="aspect-square rounded-full overflow-hidden shadow-xl border-4 border-white">
+                        <img src="photos/chair4.jpg" class="gallery-img" alt="Кресло A4" loading="lazy">
+                    </div>
+                    <span class="text-[10px] uppercase tracking-widest opacity-40">Series A4</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── SMART STORAGE ─── -->
+        <section id="tech" class="py-32 fade-in">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+                <!-- kitchen-lift.mp4: вертикальный 3:4, рекомендуем 1080×1440px
+                     poster = wardrobe1.jpg -->
+                <div class="flex justify-center order-2 lg:order-1">
+                    <div class="video-vertical shadow-2xl border-[12px] border-white">
+                        <video controls playsinline preload="metadata" poster="photos/wardrobe1.jpg">
+                            <source src="photos/kitchen-lift.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                </div>
+
+                <div class="space-y-8 order-1 lg:order-2">
+                    <h2 class="text-4xl font-light uppercase tracking-widest">Smart Storage</h2>
+                    <p class="text-stone-400 text-xl font-light italic">"Порядок, возведённый в абсолют."</p>
+
+                    <!-- wardrobe1.jpg: вертикальная 3:4, 800×1067px
+                         bed1.webp:    квадрат  1:1, 800×800px -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="rounded-2xl overflow-hidden h-64 shadow-lg">
+                            <img src="photos/wardrobe1.jpg" class="gallery-img" alt="Гардероб" loading="lazy">
+                        </div>
+                        <div class="rounded-2xl overflow-hidden h-64 shadow-lg">
+                            <img src="photos/bed1.webp" class="gallery-img" alt="Кровать" loading="lazy">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── TEXTURE & QUALITY ───
+             wood-tech.mp4, leather-tech.mp4: горизонтальные 16:9, 1920×1080px -->
+        <section id="materials" class="py-32 fade-in border-t border-stone-100">
+            <h2 class="text-center text-3xl font-light uppercase tracking-[0.3em] mb-20">Texture & Quality</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div class="space-y-4">
+                    <div class="video-horizontal shadow-lg">
+                        <video controls playsinline preload="metadata">
+                            <source src="photos/wood-tech.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <p class="text-center text-xs uppercase tracking-widest opacity-50">Natural Wood Architecture</p>
+                </div>
+                <div class="space-y-4">
+                    <div class="video-horizontal shadow-lg">
+                        <video controls playsinline preload="metadata">
+                            <source src="photos/leather-tech.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <p class="text-center text-xs uppercase tracking-widest opacity-50">Premium Leather Selection</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-stone-950 text-stone-600 py-24 text-center">
+        <div class="container mx-auto px-6">
+            <h2 class="text-white text-2xl font-light tracking-[0.5em] mb-8 uppercase">South Bear Studio</h2>
+            <div class="h-[1px] w-12 bg-amber-900 mx-auto mb-12"></div>
+            <p class="max-w-md mx-auto text-[10px] leading-relaxed uppercase tracking-widest opacity-40">
+                Design • Technology • Comfort<br>All Rights Reserved 2026
+            </p>
         </div>
-        <div class="video-label">Выдвижной диван</div>
-      </div>
-    </div>
-  </div>
+    </footer>
 
-  <!-- КРЕСЛА -->
-  <div class="subcat-panel" id="panel-kresla">
-    <div class="gallery">
-      <div class="gallery-item" onclick="openLightbox('photos/chair1.jpg')"><img src="photos/chair1.jpg" alt="Кресло"></div>
-      <div class="gallery-item" onclick="openLightbox('photos/chair2.jpg')"><img src="photos/chair2.jpg" alt="Кресло"></div>
-      <div class="gallery-item" onclick="openLightbox('photos/chair3.jpg')"><img src="photos/chair3.jpg" alt="Кресло"></div>
-      <div class="gallery-item" onclick="openLightbox('photos/chair4.jpg')"><img src="photos/chair4.jpg" alt="Кресло"></div>
-    </div>
-  </div>
-
-  <!-- КРОВАТИ -->
-  <div class="subcat-panel" id="panel-krovati">
-    <div class="gallery">
-      <div class="gallery-item" onclick="openLightbox('photos/bed1.webp')"><img src="photos/bed1.webp" alt="Кровать"></div>
-    </div>
-  </div>
-
-  <!-- ШКАФЫ -->
-  <div class="subcat-panel" id="panel-shkafy">
-    <div class="gallery">
-      <div class="gallery-item" onclick="openLightbox('photos/wardrobe1.jpg')"><img src="photos/wardrobe1.jpg" alt="Шкаф"></div>
-    </div>
-  </div>
-</div>
-
-<div class="sep"></div>
-
-<!-- 03 КУХНЯ -->
-<div class="section-wrap" id="kitchen">
-  <div class="section-header">
-    <span class="section-num">03</span>
-    <h2 class="section-title">Кухня</h2>
-  </div>
-  <div class="video-grid">
-    <div class="video-card">
-      <div class="video-embed">
-        <iframe src="https://vk.com/video_ext.php?oid=-215327661&id=456239022&hd=2" allowfullscreen></iframe>
-      </div>
-      <div class="video-label">Выдвижной лифт для посуды</div>
-    </div>
-  </div>
-</div>
-
-<div class="sep"></div>
-
-<!-- КОНТАКТЫ -->
-<div class="contact-section" id="contact">
-  <div class="contact-inner">
-    <h2 class="contact-title">Обсудим проект</h2>
-    <p class="contact-sub">
-      Мебель и материалы под заказ<br>
-      Производство по чертежам<br>
-      Поставки и таможенное оформление
-    </p>
-    <a class="contact-link" href="/cdn-cgi/l/email-protection#aac3c4ccc5ead9c5dfdec2c8cfcbd8d9dedfcec3c584c9c5c7">Написать нам</a>
-  </div>
-</div>
-
-<footer>
-  <img src="photos/logo.jpg" alt="South Bear Studio">
-  <span>© 2025 South Bear Studio</span>
-</footer>
-
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  // Мебель — фильтр с панелями
-  document.getElementById('furniture-tabs').querySelectorAll('.subcat-tag').forEach(tag => {
-    tag.addEventListener('click', () => {
-      document.getElementById('furniture-tabs').querySelectorAll('.subcat-tag').forEach(t => t.classList.remove('active'));
-      document.querySelectorAll('#furniture .subcat-panel').forEach(p => p.classList.remove('active'));
-      tag.classList.add('active');
-      const panel = document.getElementById('panel-' + tag.dataset.target);
-      if (panel) panel.classList.add('active');
-    });
-  });
-
-  // Лайтбокс
-  function openLightbox(src) {
-    document.getElementById('lightbox-img').src = src;
-    document.getElementById('lightbox').classList.add('open');
-  }
-
-  function closeLightbox() {
-    document.getElementById('lightbox').classList.remove('open');
-    document.getElemen
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
