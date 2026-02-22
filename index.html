@@ -1,225 +1,784 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>South Bear Studio | Дизайн и Оснащение</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;600&display=swap');
-        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; background-color: #fcfcfc; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>South Bear Studio | Дизайн и Оснащение</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-        /* ─── HERO ───
-           interior.webp  → вертикальная (левая), рекомендуем 900×1600px
-           interior2.jpg  → горизонтальная (правая, md+), рекомендуем 1600×900px
-           object-fit:cover подгонит любое соотношение */
-        .hero-img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(20%) brightness(0.6); }
+:root {
+  --bg:       #0C0A09;
+  --bg2:      #121009;
+  --surface:  #1A1612;
+  --border:   rgba(255,255,255,0.07);
+  --gold:     #C9A96E;
+  --gold-dim: rgba(201,169,110,0.18);
+  --cream:    #F0EBE1;
+  --muted:    #6B6560;
+  --text:     #D8D1C8;
+}
 
-        /* ─── ВИДЕО-КОНТЕЙНЕРЫ ───
-           sofa-video.mp4    → 1:1  → рекомендуем 1080×1080px
-           kitchen-lift.mp4  → 3:4  → рекомендуем 1080×1440px
-           wood-tech.mp4     → 16:9 → рекомендуем 1920×1080px
-           leather-tech.mp4  → 16:9 → рекомендуем 1920×1080px */
-        .video-horizontal { aspect-ratio: 16/9; width: 100%; border-radius: 1.5rem; overflow: hidden; background: #111; }
-        .video-square     { aspect-ratio: 1/1;  width: 100%; max-width: 500px; border-radius: 1.5rem; overflow: hidden; background: #111; margin: 0 auto; }
-        .video-vertical   { aspect-ratio: 3/4;  width: 100%; max-width: 380px; border-radius: 1.5rem; overflow: hidden; background: #111; margin: 0 auto; }
-        video { width: 100%; height: 100%; object-fit: cover; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+}
 
-        /* ─── ГАЛЕРЕЯ ───
-           sofa_cass.jpg → 2:3  → рекомендуем 800×1200px
-           sofa1/2.jpg   → 1:1  → рекомендуем 800×800px
-           chair1-4.jpg  → 1:1  → рекомендуем 600×600px (обрежется в круг)
-           wardrobe1.jpg → 3:4  → рекомендуем 800×1067px
-           bed1.webp     → 1:1  → рекомендуем 800×800px
-           logo.jpg      → горизонтальный → рекомендуем 400×120px (лучше .png с прозрачностью) */
-        .gallery-img { transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); object-fit: cover; width: 100%; height: 100%; }
-        .gallery-img:hover { transform: scale(1.04); }
+/* ── CURSOR ── */
+.cursor {
+  position: fixed; width: 8px; height: 8px;
+  background: var(--gold); border-radius: 50%;
+  pointer-events: none; z-index: 9999;
+  transform: translate(-50%,-50%);
+  transition: transform 0.15s;
+}
+.cursor-ring {
+  position: fixed; width: 36px; height: 36px;
+  border: 1px solid rgba(201,169,110,0.5); border-radius: 50%;
+  pointer-events: none; z-index: 9998;
+  transform: translate(-50%,-50%);
+  transition: transform 0.35s cubic-bezier(.25,.46,.45,.94);
+}
 
-        .fade-in { opacity: 0; transform: translateY(20px); transition: all 0.8s ease-out; }
-        .fade-in.visible { opacity: 1; transform: translateY(0); }
-    </style>
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1.6rem 4rem;
+  background: linear-gradient(to bottom, rgba(12,10,9,0.95), transparent);
+  transition: background 0.3s, border-color 0.3s;
+}
+.logo {
+  display: flex; align-items: center; gap: 1rem;
+  text-decoration: none;
+}
+.logo img {
+  height: 36px; object-fit: contain;
+  filter: brightness(0) invert(1); /* белый логотип на тёмном фоне */
+}
+.logo-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem; letter-spacing: 0.25em;
+  color: var(--cream); text-transform: uppercase;
+}
+.nav-links { display: flex; gap: 2.8rem; list-style: none; }
+.nav-links a {
+  font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--muted); text-decoration: none; transition: color 0.25s;
+}
+.nav-links a:hover { color: var(--gold); }
+.nav-cta {
+  font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--bg); background: var(--gold);
+  padding: 0.7rem 1.8rem; text-decoration: none; transition: opacity 0.2s;
+}
+.nav-cta:hover { opacity: 0.85; }
+
+/* ── HERO ── */
+#hero {
+  height: 100vh; position: relative;
+  display: flex; align-items: flex-end; overflow: hidden;
+}
+.hero-grid {
+  position: absolute; inset: 0;
+  display: grid; grid-template-columns: 1fr 1fr;
+}
+.hero-grid img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: grayscale(30%) brightness(0.45);
+}
+.hero-overlay { position: absolute; inset: 0; background: black/20; }
+/* architectural line overlay */
+.hero-lines {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: flex-end;
+  padding-right: 2rem; pointer-events: none;
+}
+.hero-content {
+  position: relative; z-index: 2;
+  padding: 0 4rem 6rem; max-width: 680px;
+}
+.hero-eyebrow {
+  display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem;
+}
+.eyebrow-line { width: 40px; height: 1px; background: var(--gold); }
+.eyebrow-text {
+  font-size: 0.68rem; letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--gold);
+}
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3.5rem, 6vw, 6.5rem);
+  font-weight: 400; line-height: 1.0;
+  color: var(--cream); margin-bottom: 2rem;
+}
+.hero-title em { font-style: italic; color: var(--gold); }
+.hero-desc {
+  font-size: 0.9rem; line-height: 1.85;
+  color: var(--muted); font-weight: 300;
+  max-width: 440px; margin-bottom: 3rem;
+}
+.hero-actions { display: flex; gap: 1.5rem; align-items: center; }
+.btn-gold {
+  background: var(--gold); color: var(--bg);
+  padding: 1rem 2.5rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase;
+  border: none; cursor: pointer; text-decoration: none;
+  transition: opacity 0.2s; display: inline-block;
+}
+.btn-gold:hover { opacity: 0.85; }
+.btn-outline {
+  font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--muted); text-decoration: none;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 2px; transition: color 0.2s, border-color 0.2s;
+}
+.btn-outline:hover { color: var(--gold); border-color: var(--gold); }
+.hero-scroll {
+  position: absolute; right: 4rem; bottom: 6rem; z-index: 2;
+  display: flex; flex-direction: column; align-items: center; gap: 1rem;
+}
+.scroll-label {
+  font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--muted); writing-mode: vertical-rl;
+}
+.scroll-line {
+  width: 1px; height: 60px;
+  background: linear-gradient(to bottom, var(--gold), transparent);
+  animation: scrollPulse 2s infinite;
+}
+@keyframes scrollPulse {
+  0%,100% { opacity: 0.3; } 50% { opacity: 1; }
+}
+.hero-stats {
+  position: absolute; right: 4rem; top: 50%;
+  transform: translateY(-50%); z-index: 2;
+  display: flex; flex-direction: column; gap: 2.5rem;
+}
+.stat { text-align: right; }
+.stat-n {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.4rem; font-weight: 400;
+  color: var(--gold); line-height: 1; display: block;
+}
+.stat-l {
+  font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--muted); display: block; margin-top: 0.3rem;
+}
+
+/* ── SECTION TAGS ── */
+.s-tag {
+  font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--gold); display: flex; align-items: center; gap: 0.8rem;
+  margin-bottom: 1.2rem;
+}
+.s-tag::before { content: ''; width: 30px; height: 1px; background: var(--gold); }
+.s-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 3.5vw, 3.5rem);
+  font-weight: 400; line-height: 1.1; color: var(--cream);
+}
+.s-title em { font-style: italic; color: var(--gold); }
+.s-sub {
+  font-size: 0.88rem; line-height: 1.85;
+  color: var(--muted); font-weight: 300;
+}
+
+/* ── VIDEO CONTAINERS ── */
+.video-horizontal { aspect-ratio: 16/9; width: 100%; overflow: hidden; background: #111; border-radius: 4px; }
+.video-square     { aspect-ratio: 1/1;  width: 100%; max-width: 500px; overflow: hidden; background: #111; margin: 0 auto; }
+.video-vertical   { aspect-ratio: 3/4;  width: 100%; max-width: 380px; overflow: hidden; background: #111; margin: 0 auto; }
+video { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* ── GALLERY CARDS ── */
+.g-card {
+  overflow: hidden; position: relative; background: var(--surface);
+  cursor: pointer;
+}
+.g-card img, .g-card video {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform 0.8s cubic-bezier(.25,.46,.45,.94);
+}
+.g-card:hover img, .g-card:hover video { transform: scale(1.05); }
+.g-card-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(12,10,9,0.85) 0%, transparent 55%);
+  opacity: 0; transition: opacity 0.4s;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 1.5rem;
+}
+.g-card:hover .g-card-overlay { opacity: 1; }
+.g-card-label {
+  font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 0.3rem;
+}
+.g-card-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem; color: var(--cream);
+}
+
+/* ── LIVING COLLECTION ── */
+#furniture { padding: 8rem 4rem; background: var(--bg); }
+.furniture-grid {
+  display: grid; grid-template-columns: 1.6fr 1fr 1fr;
+  grid-template-rows: 420px 280px; gap: 3px; margin-top: 5rem;
+}
+.furniture-grid .g-card:nth-child(1) { grid-column: 1; grid-row: 1 / 3; }
+.furniture-grid .g-card:nth-child(2) { grid-column: 2; grid-row: 1; }
+.furniture-grid .g-card:nth-child(3) { grid-column: 3; grid-row: 1; }
+.furniture-grid .g-card:nth-child(4) { grid-column: 2; grid-row: 2; }
+.furniture-grid .g-card:nth-child(5) { grid-column: 3; grid-row: 2; }
+
+/* ── CHAIRS ── */
+#chairs { padding: 8rem 4rem; background: var(--bg2); border-top: 1px solid var(--border); }
+.chairs-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 3px; margin-top: 4rem;
+}
+.chair-card {
+  background: var(--surface); position: relative; overflow: hidden;
+  aspect-ratio: 1/1; cursor: pointer;
+}
+.chair-card img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform 0.8s cubic-bezier(.25,.46,.45,.94);
+  filter: grayscale(20%);
+  border-radius: 50%;
+  /* круговая маска через clip-path или просто border-radius на контейнере */
+}
+.chair-card-inner {
+  width: 80%; height: 80%; border-radius: 50%; overflow: hidden;
+  margin: 10% auto; position: relative;
+  border: 2px solid rgba(201,169,110,0.2);
+  box-shadow: 0 0 40px rgba(0,0,0,0.6);
+  transition: border-color 0.3s;
+}
+.chair-card:hover .chair-card-inner { border-color: rgba(201,169,110,0.6); }
+.chair-card-inner img {
+  width: 100%; height: 100%; object-fit: cover;
+  border-radius: 50%;
+  transition: transform 0.8s cubic-bezier(.25,.46,.45,.94);
+}
+.chair-card:hover .chair-card-inner img { transform: scale(1.06); }
+.chair-label {
+  position: absolute; bottom: 8%; left: 0; right: 0;
+  text-align: center;
+  font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(201,169,110,0.5);
+}
+
+/* ── SMART STORAGE ── */
+#tech { padding: 8rem 4rem; background: var(--surface); border-top: 1px solid var(--border); }
+.tech-layout {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 6rem; align-items: center; margin-top: 4rem;
+}
+.tech-video-wrap {
+  position: relative;
+}
+.tech-video-wrap::before {
+  content: '';
+  position: absolute; top: -1.5rem; left: -1.5rem;
+  right: 1.5rem; bottom: 1.5rem;
+  border: 1px solid var(--gold-dim);
+  pointer-events: none;
+  z-index: 0;
+}
+.tech-video-wrap .video-vertical { position: relative; z-index: 1; }
+.tech-images {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 3px;
+}
+.tech-images .g-card { height: 260px; }
+
+/* ── MATERIALS ── */
+#materials { padding: 8rem 4rem; background: var(--bg); border-top: 1px solid var(--border); }
+.materials-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 3px; margin-top: 4rem;
+}
+.mat-card {
+  position: relative; overflow: hidden; background: var(--surface);
+}
+.mat-label {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 1.5rem; z-index: 2;
+  font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(240,235,225,0.5);
+  background: linear-gradient(to top, rgba(12,10,9,0.7), transparent);
+  text-align: center;
+}
+
+/* ── CONTACT ── */
+#contact { padding: 8rem 4rem; background: var(--bg2); border-top: 1px solid var(--border); }
+.contact-grid {
+  display: grid; grid-template-columns: 1fr 1.2fr;
+  gap: 7rem; align-items: start;
+}
+.c-details { margin-top: 3.5rem; display: flex; flex-direction: column; gap: 2.2rem; }
+.c-lbl {
+  font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 0.4rem;
+}
+.c-val { font-family: 'Playfair Display', serif; font-size: 1.15rem; color: var(--cream); }
+.form { display: flex; flex-direction: column; gap: 1.4rem; }
+.f-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; }
+.f-group { display: flex; flex-direction: column; gap: 0.5rem; }
+.f-lbl {
+  font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--muted);
+}
+.f-input, .f-select, .f-textarea {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  border-bottom-color: rgba(255,255,255,0.15);
+  color: var(--cream);
+  padding: 1rem 1.2rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem; font-weight: 300;
+  outline: none; width: 100%;
+  transition: border-color 0.25s, background 0.25s;
+}
+.f-input:focus, .f-select:focus, .f-textarea:focus {
+  border-color: var(--gold); background: rgba(201,169,110,0.04);
+}
+.f-input::placeholder, .f-textarea::placeholder { color: rgba(255,255,255,0.15); }
+.f-select { appearance: none; cursor: pointer; }
+.f-select option { background: var(--bg); }
+.f-textarea { resize: vertical; min-height: 120px; }
+.f-submit {
+  background: var(--gold); color: var(--bg);
+  border: none; padding: 1.15rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+  cursor: pointer; transition: opacity 0.2s; margin-top: 0.4rem;
+}
+.f-submit:hover { opacity: 0.85; }
+.f-note { font-size: 0.68rem; color: var(--muted); text-align: center; }
+.success {
+  display: none; text-align: center; padding: 3rem;
+  border: 1px solid rgba(201,169,110,0.3); background: var(--gold-dim);
+}
+.success-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem; font-style: italic; color: var(--cream); margin-bottom: 0.8rem;
+}
+.success-sub { font-size: 0.82rem; color: var(--muted); }
+
+/* ── FOOTER ── */
+footer {
+  background: #080706; padding: 2rem 4rem;
+  display: flex; justify-content: space-between; align-items: center;
+  border-top: 1px solid var(--border);
+}
+.f-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem; letter-spacing: 0.2em; color: var(--cream); text-decoration: none;
+}
+.f-logo span { color: var(--gold); }
+.f-copy { font-size: 0.68rem; color: var(--muted); letter-spacing: 0.08em; }
+.f-nav { display: flex; gap: 2rem; }
+.f-nav a {
+  font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--muted); text-decoration: none; transition: color 0.2s;
+}
+.f-nav a:hover { color: var(--gold); }
+
+/* ── REVEAL ── */
+.reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+.reveal.in { opacity: 1; transform: translateY(0); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1000px) {
+  nav { padding: 1.2rem 1.5rem; }
+  .nav-links, .hero-stats, .cursor, .cursor-ring { display: none; }
+  .hero-grid { grid-template-columns: 1fr; }
+  .hero-grid img:last-child { display: none; }
+  .hero-content { padding: 8rem 1.5rem 4rem; }
+  #furniture, #chairs, #tech, #materials, #contact { padding: 5rem 1.5rem; }
+  .furniture-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+  }
+  .furniture-grid .g-card { grid-column: auto !important; grid-row: auto !important; height: 200px; }
+  .furniture-grid .g-card:first-child { grid-column: 1 / 3 !important; height: 300px; }
+  .chairs-grid { grid-template-columns: 1fr 1fr; }
+  .tech-layout { grid-template-columns: 1fr; gap: 3rem; }
+  .materials-grid { grid-template-columns: 1fr; }
+  .contact-grid { grid-template-columns: 1fr; gap: 3.5rem; }
+  .f-row { grid-template-columns: 1fr; }
+  footer { flex-direction: column; gap: 1rem; padding: 1.5rem; text-align: center; }
+}
+</style>
 </head>
-<body class="text-stone-900">
+<body>
 
-    <!-- NAV -->
-    <nav class="fixed top-0 z-50 w-full bg-white/90 backdrop-blur-md border-b border-stone-100">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="flex items-center gap-4">
-                <!-- logo.jpg: 400×120px, лучше logo.png с прозрачным фоном -->
-                <img src="photos/logo.jpg" alt="South Bear Studio" class="h-8 md:h-10 object-contain" loading="eager">
-                <span class="font-bold tracking-[0.2em] text-[10px] md:text-xs uppercase">South Bear Studio</span>
-            </div>
-            <div class="hidden md:flex space-x-8 font-medium uppercase text-[10px] tracking-widest text-stone-500">
-                <a href="#furniture" class="hover:text-amber-900 transition">Мебель</a>
-                <a href="#tech"      class="hover:text-amber-900 transition">Технологии</a>
-                <a href="#materials" class="hover:text-amber-900 transition">Материалы</a>
-            </div>
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="curR"></div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a class="logo" href="#">
+    <!-- logo.jpg: рекомендуем 400×120px или PNG с прозрачностью -->
+    <img src="photos/logo.jpg" alt="South Bear Studio">
+    <span class="logo-text">South Bear Studio</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#furniture">Мебель</a></li>
+    <li><a href="#chairs">Кресла</a></li>
+    <li><a href="#tech">Технологии</a></li>
+    <li><a href="#materials">Материалы</a></li>
+    <li><a href="#contact">Контакты</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Заявка</a>
+</nav>
+
+<!-- HERO
+     interior.webp  → левая половина, вертикальная  900×1600px
+     interior2.jpg  → правая половина, горизонтальная 1600×900px -->
+<section id="hero">
+  <div class="hero-grid">
+    <img src="photos/interior.webp" alt="Интерьер" loading="eager">
+    <img src="photos/interior2.jpg" alt="Интерьер широкий" loading="eager">
+  </div>
+  <div style="position:absolute;inset:0;background:rgba(0,0,0,0.15);"></div>
+
+  <div class="hero-lines">
+    <svg viewBox="0 0 900 600" width="760" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.12;">
+      <rect x="100" y="50" width="700" height="500" stroke="#C9A96E" stroke-width="0.8"/>
+      <path d="M100 50 L40 10 L820 10 L760 50" stroke="#C9A96E" stroke-width="0.5" opacity="0.5"/>
+      <path d="M100 550 L40 590 L820 590 L760 550" stroke="#C9A96E" stroke-width="0.5" opacity="0.5"/>
+      <path d="M100 50 L40 10 L40 590 L100 550" stroke="#C9A96E" stroke-width="0.5" opacity="0.5"/>
+      <path d="M760 50 L820 10 L820 590 L760 550" stroke="#C9A96E" stroke-width="0.5" opacity="0.5"/>
+      <rect x="290" y="80" width="260" height="220" stroke="#C9A96E" stroke-width="0.8"/>
+      <line x1="420" y1="80" x2="420" y2="300" stroke="#C9A96E" stroke-width="0.5"/>
+      <line x1="290" y1="190" x2="550" y2="190" stroke="#C9A96E" stroke-width="0.5"/>
+      <rect x="120" y="390" width="230" height="80" stroke="#C9A96E" stroke-width="0.8"/>
+      <rect x="120" y="360" width="230" height="36" stroke="#C9A96E" stroke-width="0.6"/>
+      <line x1="640" y1="320" x2="640" y2="480" stroke="#C9A96E" stroke-width="0.9"/>
+      <path d="M610 320 L670 320 L660 285 L620 285 Z" stroke="#C9A96E" stroke-width="0.7"/>
+      <line x1="100" y1="390" x2="760" y2="390" stroke="#C9A96E" stroke-width="0.5" opacity="0.3"/>
+      <line x1="280" y1="50" x2="280" y2="550" stroke="#C9A96E" stroke-width="0.3" opacity="0.2"/>
+      <line x1="560" y1="50" x2="560" y2="550" stroke="#C9A96E" stroke-width="0.3" opacity="0.2"/>
+    </svg>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow reveal">
+      <span class="eyebrow-line"></span>
+      <span class="eyebrow-text">Дизайн · Ремонт · Мебель на заказ</span>
+    </div>
+    <h1 class="hero-title reveal">Architectural<br><em>Interior</em><br>Solutions</h1>
+    <p class="hero-desc reveal">Проектируем, строим и меблируем пространства, в которых хочется жить. Каждый объект — авторская работа от первого эскиза до последней детали.</p>
+    <div class="hero-actions reveal">
+      <a href="#contact" class="btn-gold">Обсудить проект</a>
+      <a href="#furniture" class="btn-outline">Смотреть коллекцию</a>
+    </div>
+  </div>
+
+  <div class="hero-stats reveal">
+    <div class="stat"><span class="stat-n">8+</span><span class="stat-l">Лет в деле</span></div>
+    <div class="stat"><span class="stat-n">230</span><span class="stat-l">Проектов</span></div>
+    <div class="stat"><span class="stat-n">97%</span><span class="stat-l">Рекомендуют</span></div>
+  </div>
+
+  <div class="hero-scroll">
+    <span class="scroll-label">Scroll</span>
+    <span class="scroll-line"></span>
+  </div>
+</section>
+
+<!-- LIVING COLLECTION
+     sofa_cass.jpg → большая вертикальная карточка  800×1200px (2:3)
+     sofa-video.mp4 → квадратный контейнер         1080×1080px (1:1)
+     sofa1.jpg      → квадратная карточка           800×800px  (1:1)
+     sofa2.jpg      → квадратная карточка           800×800px  (1:1) -->
+<section id="furniture">
+  <div class="reveal">
+    <p class="s-tag">Living Collection</p>
+    <h2 class="s-title">Диваны &amp; <em>Мягкая мебель</em></h2>
+  </div>
+  <div class="furniture-grid reveal">
+
+    <!-- Карточка 1: большая, левая — вертикальное фото -->
+    <div class="g-card">
+      <img src="photos/sofa_cass.jpg" alt="Диван Cassandra" loading="lazy">
+      <div class="g-card-overlay">
+        <div class="g-card-label">Флагманская модель</div>
+        <div class="g-card-name">Cassandra</div>
+      </div>
+    </div>
+
+    <!-- Карточка 2: правый верх — квадратное видео -->
+    <div class="g-card">
+      <div class="video-square" style="max-width:100%;height:100%;">
+        <video controls playsinline preload="metadata" poster="photos/sofa1.jpg">
+          <source src="photos/sofa-video.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+
+    <!-- Карточка 3: правый верх второй -->
+    <div class="g-card">
+      <img src="photos/sofa1.jpg" alt="Диван 1" loading="lazy">
+      <div class="g-card-overlay">
+        <div class="g-card-label">Коллекция 2026</div>
+        <div class="g-card-name">Модель S-01</div>
+      </div>
+    </div>
+
+    <!-- Карточка 4: правый низ -->
+    <div class="g-card">
+      <img src="photos/sofa2.jpg" alt="Диван 2" loading="lazy">
+      <div class="g-card-overlay">
+        <div class="g-card-label">Коллекция 2026</div>
+        <div class="g-card-name">Модель S-02</div>
+      </div>
+    </div>
+
+    <!-- Карточка 5: правый низ второй -->
+    <div class="g-card" style="background:var(--surface);display:flex;flex-direction:column;justify-content:flex-end;padding:2.5rem;">
+      <p class="s-tag" style="margin-bottom:1rem;">Материалы</p>
+      <p style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--cream);line-height:1.3;margin-bottom:1rem;">Квадратные формы и выверенная <em style="color:var(--gold);">эргономика</em></p>
+      <p style="font-size:0.8rem;color:var(--muted);line-height:1.7;font-weight:300;">Натуральные материалы, ручная сборка, гарантия 10 лет.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CHAIRS
+     chair1-4.jpg → квадрат 600×600px (1:1), центр кадра — кресло -->
+<section id="chairs">
+  <div class="reveal">
+    <p class="s-tag">Seating Series</p>
+    <h2 class="s-title">Кресла <em>Series A</em></h2>
+  </div>
+  <div class="chairs-grid reveal">
+    <div class="chair-card">
+      <div class="chair-card-inner">
+        <img src="photos/chair1.jpg" alt="Кресло A1" loading="lazy">
+      </div>
+      <span class="chair-label">Series A1</span>
+    </div>
+    <div class="chair-card">
+      <div class="chair-card-inner">
+        <img src="photos/chair2.jpg" alt="Кресло A2" loading="lazy">
+      </div>
+      <span class="chair-label">Series A2</span>
+    </div>
+    <div class="chair-card">
+      <div class="chair-card-inner">
+        <img src="photos/chair3.jpg" alt="Кресло A3" loading="lazy">
+      </div>
+      <span class="chair-label">Series A3</span>
+    </div>
+    <div class="chair-card">
+      <div class="chair-card-inner">
+        <img src="photos/chair4.jpg" alt="Кресло A4" loading="lazy">
+      </div>
+      <span class="chair-label">Series A4</span>
+    </div>
+  </div>
+</section>
+
+<!-- SMART STORAGE
+     kitchen-lift.mp4 → вертикальный 3:4, 1080×1440px, poster=wardrobe1.jpg
+     wardrobe1.jpg    → 3:4,  800×1067px
+     bed1.webp        → 1:1,  800×800px -->
+<section id="tech">
+  <div class="reveal">
+    <p class="s-tag">Smart Storage</p>
+    <h2 class="s-title">Порядок, возведённый<br>в <em>абсолют</em></h2>
+  </div>
+  <div class="tech-layout reveal">
+    <div class="tech-video-wrap">
+      <div class="video-vertical">
+        <video controls playsinline preload="metadata" poster="photos/wardrobe1.jpg">
+          <source src="photos/kitchen-lift.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+    <div>
+      <p class="s-sub" style="margin-bottom:3rem;">Умные системы хранения, встроенные лифты и скрытые механизмы — технологии, которые делают жизнь проще.</p>
+      <div class="tech-images">
+        <div class="g-card">
+          <img src="photos/wardrobe1.jpg" alt="Гардероб" loading="lazy">
+          <div class="g-card-overlay">
+            <div class="g-card-label">Хранение</div>
+            <div class="g-card-name">Гардероб</div>
+          </div>
         </div>
-    </nav>
-
-    <!-- HERO
-         Два фото на 90vh высоты экрана.
-         interior.webp  — вертикальная фотография, 900×1600px
-         interior2.jpg  — горизонтальная фотография, 1600×900px
-         Оба файла в /photos/  -->
-    <header class="relative h-[90vh] flex items-center justify-center bg-stone-950 overflow-hidden">
-        <div class="absolute inset-0 grid grid-cols-1 md:grid-cols-2">
-            <img src="photos/interior.webp"  class="hero-img" alt="Интерьер" loading="eager">
-            <img src="photos/interior2.jpg"  class="hero-img hidden md:block" alt="Интерьер широкий" loading="eager">
+        <div class="g-card">
+          <img src="photos/bed1.webp" alt="Кровать" loading="lazy">
+          <div class="g-card-overlay">
+            <div class="g-card-label">Спальня</div>
+            <div class="g-card-name">Кровать</div>
+          </div>
         </div>
-        <div class="absolute inset-0 bg-black/30"></div>
-        <div class="relative text-center px-6">
-            <h1 class="text-6xl md:text-9xl font-extralight text-white mb-4 tracking-tighter uppercase">South Bear</h1>
-            <p class="text-amber-500/80 text-xs md:text-sm uppercase tracking-[0.7em] font-light">Architectural Interior Solutions</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEXTURE & QUALITY
+     wood-tech.mp4    → 16:9, 1920×1080px
+     leather-tech.mp4 → 16:9, 1920×1080px -->
+<section id="materials">
+  <div class="reveal">
+    <p class="s-tag">Texture &amp; Quality</p>
+    <h2 class="s-title">Материалы, которые<br><em>говорят сами за себя</em></h2>
+  </div>
+  <div class="materials-grid reveal">
+    <div class="mat-card">
+      <div class="video-horizontal" style="border-radius:0;">
+        <video controls playsinline preload="metadata">
+          <source src="photos/wood-tech.mp4" type="video/mp4">
+        </video>
+      </div>
+      <span class="mat-label">Natural Wood Architecture</span>
+    </div>
+    <div class="mat-card">
+      <div class="video-horizontal" style="border-radius:0;">
+        <video controls playsinline preload="metadata">
+          <source src="photos/leather-tech.mp4" type="video/mp4">
+        </video>
+      </div>
+      <span class="mat-label">Premium Leather Selection</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-grid">
+    <div class="reveal">
+      <p class="s-tag">Связаться</p>
+      <h2 class="s-title">Расскажите<br>о вашем <em>проекте</em></h2>
+      <p class="s-sub" style="margin-top:1.5rem;max-width:360px;">Первичная консультация бесплатна. Свяжемся в течение одного рабочего дня.</p>
+      <div class="c-details">
+        <div><div class="c-lbl">Телефон</div><div class="c-val">+7 (999) 000-00-00</div></div>
+        <div><div class="c-lbl">Email</div><div class="c-val">hello@southbear.ru</div></div>
+        <div><div class="c-lbl">Студия</div><div class="c-val">Москва, ул. Примерная, 12</div></div>
+        <div><div class="c-lbl">Часы работы</div><div class="c-val">Пн–Пт, 10:00–19:00</div></div>
+      </div>
+    </div>
+    <div class="reveal">
+      <!-- Замените YOUR_ID на ID формы с formspree.io -->
+      <form class="form" id="mainForm" action="https://formspree.io/f/YOUR_ID" method="POST">
+        <div class="f-row">
+          <div class="f-group">
+            <label class="f-lbl">Имя *</label>
+            <input class="f-input" type="text" name="name" placeholder="Ваше имя" required>
+          </div>
+          <div class="f-group">
+            <label class="f-lbl">Телефон *</label>
+            <input class="f-input" type="tel" name="phone" placeholder="+7 (___) ___-__-__" required>
+          </div>
         </div>
-    </header>
-
-    <main class="container mx-auto px-6">
-
-        <!-- ─── LIVING COLLECTION ─── -->
-        <section id="furniture" class="py-32 fade-in">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-
-                <div class="lg:col-span-5 space-y-8">
-                    <h2 class="text-5xl font-light uppercase tracking-tight">Living <br>Collection</h2>
-
-                    <!-- sofa-video.mp4: квадрат 1:1, рекомендуем 1080×1080px
-                         poster = sofa_cass.jpg (превью до нажатия play) -->
-                    <div class="video-square shadow-2xl">
-                        <video controls playsinline preload="metadata" poster="photos/sofa_cass.jpg">
-                            <source src="photos/sofa-video.mp4" type="video/mp4">
-                        </video>
-                    </div>
-
-                    <p class="text-stone-500 text-lg font-light leading-relaxed">
-                        Квадратные формы и выверенная эргономика. Наши диваны — это баланс между функциональностью и чистым искусством.
-                    </p>
-                </div>
-
-                <!-- sofa_cass.jpg: вертикальная 800×1200px (2:3)
-                     sofa1.jpg, sofa2.jpg: квадрат 800×800px (1:1) -->
-                <div class="lg:col-span-7 grid grid-cols-2 gap-4">
-                    <div class="rounded-3xl overflow-hidden h-80 lg:h-[500px]">
-                        <img src="photos/sofa_cass.jpg" class="gallery-img" alt="Диван Cassandra" loading="lazy">
-                    </div>
-                    <div class="grid grid-rows-2 gap-4">
-                        <div class="rounded-3xl overflow-hidden" style="height:242px;">
-                            <img src="photos/sofa1.jpg" class="gallery-img" alt="Диван 1" loading="lazy">
-                        </div>
-                        <div class="rounded-3xl overflow-hidden" style="height:242px;">
-                            <img src="photos/sofa2.jpg" class="gallery-img" alt="Диван 2" loading="lazy">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ─── КРЕСЛА: КРУГОВАЯ ГАЛЕРЕЯ ───
-             chair1-4.jpg: квадрат 600×600px (1:1)
-             Центр кадра — само кресло, фон однотонный -->
-        <section class="py-20 fade-in bg-stone-50 -mx-6 px-6 rounded-[4rem]">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-6xl mx-auto">
-                <div class="space-y-4 text-center">
-                    <div class="aspect-square rounded-full overflow-hidden shadow-xl border-4 border-white">
-                        <img src="photos/chair1.jpg" class="gallery-img" alt="Кресло A1" loading="lazy">
-                    </div>
-                    <span class="text-[10px] uppercase tracking-widest opacity-40">Series A1</span>
-                </div>
-                <div class="space-y-4 text-center">
-                    <div class="aspect-square rounded-full overflow-hidden shadow-xl border-4 border-white">
-                        <img src="photos/chair2.jpg" class="gallery-img" alt="Кресло A2" loading="lazy">
-                    </div>
-                    <span class="text-[10px] uppercase tracking-widest opacity-40">Series A2</span>
-                </div>
-                <div class="space-y-4 text-center">
-                    <div class="aspect-square rounded-full overflow-hidden shadow-xl border-4 border-white">
-                        <img src="photos/chair3.jpg" class="gallery-img" alt="Кресло A3" loading="lazy">
-                    </div>
-                    <span class="text-[10px] uppercase tracking-widest opacity-40">Series A3</span>
-                </div>
-                <div class="space-y-4 text-center">
-                    <div class="aspect-square rounded-full overflow-hidden shadow-xl border-4 border-white">
-                        <img src="photos/chair4.jpg" class="gallery-img" alt="Кресло A4" loading="lazy">
-                    </div>
-                    <span class="text-[10px] uppercase tracking-widest opacity-40">Series A4</span>
-                </div>
-            </div>
-        </section>
-
-        <!-- ─── SMART STORAGE ─── -->
-        <section id="tech" class="py-32 fade-in">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-
-                <!-- kitchen-lift.mp4: вертикальный 3:4, рекомендуем 1080×1440px
-                     poster = wardrobe1.jpg -->
-                <div class="flex justify-center order-2 lg:order-1">
-                    <div class="video-vertical shadow-2xl border-[12px] border-white">
-                        <video controls playsinline preload="metadata" poster="photos/wardrobe1.jpg">
-                            <source src="photos/kitchen-lift.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                </div>
-
-                <div class="space-y-8 order-1 lg:order-2">
-                    <h2 class="text-4xl font-light uppercase tracking-widest">Smart Storage</h2>
-                    <p class="text-stone-400 text-xl font-light italic">"Порядок, возведённый в абсолют."</p>
-
-                    <!-- wardrobe1.jpg: вертикальная 3:4, 800×1067px
-                         bed1.webp:    квадрат  1:1, 800×800px -->
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="rounded-2xl overflow-hidden h-64 shadow-lg">
-                            <img src="photos/wardrobe1.jpg" class="gallery-img" alt="Гардероб" loading="lazy">
-                        </div>
-                        <div class="rounded-2xl overflow-hidden h-64 shadow-lg">
-                            <img src="photos/bed1.webp" class="gallery-img" alt="Кровать" loading="lazy">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ─── TEXTURE & QUALITY ───
-             wood-tech.mp4, leather-tech.mp4: горизонтальные 16:9, 1920×1080px -->
-        <section id="materials" class="py-32 fade-in border-t border-stone-100">
-            <h2 class="text-center text-3xl font-light uppercase tracking-[0.3em] mb-20">Texture & Quality</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-                <div class="space-y-4">
-                    <div class="video-horizontal shadow-lg">
-                        <video controls playsinline preload="metadata">
-                            <source src="photos/wood-tech.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                    <p class="text-center text-xs uppercase tracking-widest opacity-50">Natural Wood Architecture</p>
-                </div>
-                <div class="space-y-4">
-                    <div class="video-horizontal shadow-lg">
-                        <video controls playsinline preload="metadata">
-                            <source src="photos/leather-tech.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                    <p class="text-center text-xs uppercase tracking-widest opacity-50">Premium Leather Selection</p>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- FOOTER -->
-    <footer class="bg-stone-950 text-stone-600 py-24 text-center">
-        <div class="container mx-auto px-6">
-            <h2 class="text-white text-2xl font-light tracking-[0.5em] mb-8 uppercase">South Bear Studio</h2>
-            <div class="h-[1px] w-12 bg-amber-900 mx-auto mb-12"></div>
-            <p class="max-w-md mx-auto text-[10px] leading-relaxed uppercase tracking-widest opacity-40">
-                Design • Technology • Comfort<br>All Rights Reserved 2026
-            </p>
+        <div class="f-group">
+          <label class="f-lbl">Email</label>
+          <input class="f-input" type="email" name="email" placeholder="your@email.ru">
         </div>
-    </footer>
+        <div class="f-row">
+          <div class="f-group">
+            <label class="f-lbl">Тип услуги</label>
+            <select class="f-select" name="service">
+              <option value="">Выберите</option>
+              <option>Дизайн интерьера</option>
+              <option>Ремонт под ключ</option>
+              <option>Мебель на заказ</option>
+              <option>Комплексный проект</option>
+            </select>
+          </div>
+          <div class="f-group">
+            <label class="f-lbl">Площадь</label>
+            <select class="f-select" name="area">
+              <option value="">Укажите</option>
+              <option>До 50 м²</option>
+              <option>50–80 м²</option>
+              <option>80–120 м²</option>
+              <option>120–200 м²</option>
+              <option>Более 200 м²</option>
+            </select>
+          </div>
+        </div>
+        <div class="f-group">
+          <label class="f-lbl">Сообщение</label>
+          <textarea class="f-textarea" name="message" placeholder="Стиль, особые пожелания, сроки…"></textarea>
+        </div>
+        <button type="submit" class="f-submit">Отправить заявку →</button>
+        <p class="f-note">Нажимая, вы соглашаетесь с политикой конфиденциальности</p>
+      </form>
+      <div class="success" id="successMsg">
+        <div class="success-title">Заявка отправлена</div>
+        <p class="success-sub">Мы свяжемся с вами в течение одного рабочего дня</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <script>
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-    </script>
+<!-- FOOTER -->
+<footer>
+  <a class="f-logo" href="#">South <span>Bear</span> Studio</a>
+  <p class="f-copy">© 2026 South Bear Studio. All Rights Reserved.</p>
+  <nav class="f-nav">
+    <a href="#furniture">Мебель</a>
+    <a href="#tech">Технологии</a>
+    <a href="#contact">Контакты</a>
+  </nav>
+</footer>
+
+<script>
+// Cursor
+const cur=document.getElementById('cur'),curR=document.getElementById('curR');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+(function animateCursor(){
+  cur.style.left=mx+'px';cur.style.top=my+'px';
+  rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;
+  curR.style.left=rx+'px';curR.style.top=ry+'px';
+  requestAnimationFrame(animateCursor);
+})();
+document.querySelectorAll('a,button,.g-card,.chair-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.transform='translate(-50%,-50%) scale(2.5)';curR.style.transform='translate(-50%,-50%) scale(1.6)';});
+  el.addEventListener('mouseleave',()=>{cur.style.transform='translate(-50%,-50%) scale(1)';curR.style.transform='translate(-50%,-50%) scale(1)';});
+});
+
+// Scroll reveal
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}});
+},{threshold:0.08});
+document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%4*0.12)+'s';obs.observe(el);});
+
+// Nav
+const nav=document.getElementById('mainNav');
+window.addEventListener('scroll',()=>{
+  if(window.scrollY>80){
+    nav.style.background='rgba(12,10,9,0.97)';
+    nav.style.backdropFilter='blur(20px)';
+    nav.style.borderBottom='1px solid rgba(255,255,255,0.06)';
+  } else {
+    nav.style.background='linear-gradient(to bottom,rgba(12,10,9,0.95),transparent)';
+    nav.style.backdropFilter='none';
+    nav.style.borderBottom='none';
+  }
+});
+
+// Form
+document.getElementById('mainForm')?.addEventListener('submit',async e=>{
+  e.preventDefault();
+  const btn=e.target.querySelector('.f-submit');
+  btn.textContent='Отправляем…';btn.disabled=true;
+  try{
+    const res=await fetch(e.target.action,{method:'POST',body:new FormData(e.target),headers:{Accept:'application/json'}});
+    if(res.ok){e.target.style.display='none';document.getElementById('successMsg').style.display='block';}
+    else{btn.textContent='Ошибка — попробуйте ещё раз';btn.disabled=false;}
+  }catch{btn.textContent='Ошибка — попробуйте ещё раз';btn.disabled=false;}
+});
+</script>
 </body>
 </html>
